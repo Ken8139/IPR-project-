@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalTrack Pro - Testimonials</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: var(--light-grey);
+            --text: var(--dark-grey);
+            --card-bg: white;
+            --nav-bg: var(--black);
+            --nav-text: white;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(100, 181, 246, 0.9));
+            --testimonial-card-bg: white;
+            --testimonial-text: var(--dark-grey);
+        }
+
+        :root[data-theme="dark"] {
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --light-grey: #333333;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --testimonial-card-bg: #2d2d2d;
+            --testimonial-text: #ffffff;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-purple);
+        }
+
+        .nav-button {
+            background-color: var(--primary-violet);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-purple);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--nav-text);
+            color: var(--nav-text);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-violet);
+            border-color: var(--primary-violet);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--testimonial-card-bg);
+            color: var(--testimonial-text);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background-color 0.3s, color 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-card p {
+            color: var(--testimonial-text);
+        }
+
+        .testimonial-card h3 {
+            color: var(--primary-violet);
+        }
+
+        .testimonial-title {
+            color: var(--testimonial-text);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .testimonials-hero {
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            padding: 8rem 2rem 4rem;
+            color: white;
+            text-align: center;
+        }
+
+        .testimonials-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonials-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .testimonial-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary-violet);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--primary-violet);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary-violet);
+            color: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .testimonial-content {
+            padding: 2rem;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h3 {
+            color: var(--primary-violet);
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-text {
+            color: var(--testimonial-text);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .testimonial-rating {
+            color: gold;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-date {
+            color: var(--testimonial-text);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .category-section {
+            padding: 4rem 2rem;
+            background-color: var(--background);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .category-section h2 {
+            color: var(--primary-violet);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .category-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary-violet);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            background-color: var(--black);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-hero h1 {
+                font-size: 2rem;
+            }
+
+            .testimonials-hero p {
+                font-size: 1rem;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .category-section h2 {
+                font-size: 2rem;
+            }
+
+            .category-intro {
+                font-size: 1rem;
+            }
+        }
+
+        /* Add logo styles */
+        .navbar .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--primary-violet);
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="benefits.html">Benefits</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="blog.html">Blog</a>
+            <a href="help-center.html">Help Center</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="testimonials-hero">
+        <h1>What Our Users Say</h1>
+        <p>Discover how VitalTrack Pro has transformed the health monitoring experience for people from all walks of life.</p>
+    </section>
+
+    <div class="testimonial-categories">
+        <button class="category-btn active" data-category="all">All</button>
+        <button class="category-btn" data-category="fitness">Fitness</button>
+        <button class="category-btn" data-category="healthcare">Healthcare</button>
+        <button class="category-btn" data-category="seniors">Seniors</button>
+        <button class="category-btn" data-category="athletes">Athletes</button>
+    </div>
+
+    <section class="category-section" id="fitness-section">
+        <h2>Fitness Enthusiasts</h2>
+        <div class="category-intro">
+            <p>See how fitness enthusiasts are achieving their health and wellness goals with VitalTrack Pro's advanced monitoring capabilities.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" alt="Sarah Johnson" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Sarah Johnson" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Sarah Johnson</h3>
+                            <p class="testimonial-title">Fitness Trainer</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"VitalTrack Pro has revolutionized how I track my clients' progress. The real-time monitoring and detailed analytics help me create personalized workout plans that deliver results."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 15, 2024</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438" alt="Mike Chen" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Mike Chen" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Mike Chen</h3>
+                            <p class="testimonial-title">Yoga Instructor</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The stress management features are incredible. I can monitor my stress levels during classes and use the guided breathing exercises to help my students achieve better mindfulness."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 10, 2024</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd" alt="Emma Davis" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80" alt="Emma Davis" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Emma Davis</h3>
+                            <p class="testimonial-title">CrossFit Athlete</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The workout detection and performance tracking features are spot-on. It's like having a personal coach with me at every session, helping me optimize my training."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 5, 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-section" id="healthcare-section">
+        <h2>Healthcare Professionals</h2>
+        <div class="category-intro">
+            <p>Learn how healthcare professionals are leveraging VitalTrack Pro to provide better care and monitoring for their patients.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d" alt="Dr. James Wilson" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" alt="Dr. James Wilson" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Dr. James Wilson</h3>
+                            <p class="testimonial-title">Cardiologist</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"As a cardiologist, I need reliable data to make informed decisions. VitalTrack Pro's medical-grade accuracy and comprehensive monitoring capabilities have become an essential tool in my practice."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 18, 2024</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef" alt="Dr. Maria Rodriguez" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" alt="Dr. Maria Rodriguez" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Dr. Maria Rodriguez</h3>
+                            <p class="testimonial-title">General Practitioner</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The ability to monitor patients remotely and receive alerts for concerning changes has transformed how I provide care. It's especially valuable for managing chronic conditions."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 12, 2024</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1581093458791-9f3c3250a8b7" alt="Dr. Robert Kim" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" alt="Dr. Robert Kim" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Dr. Robert Kim</h3>
+                            <p class="testimonial-title">Emergency Medicine</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The emergency alert system is a game-changer. When patients arrive at the ER, having their complete health history and recent vital signs immediately available saves crucial time."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 8, 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-section" id="seniors-section">
+        <h2>Senior Citizens</h2>
+        <div class="category-intro">
+            <p>Discover how VitalTrack Pro is helping seniors maintain their independence while ensuring their safety and well-being.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d" alt="Margaret Thompson" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" alt="Margaret Thompson" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Margaret Thompson</h3>
+                            <p class="testimonial-title">Retired Teacher</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"At 75, I value my independence. VitalTrack Pro gives me and my family peace of mind. The fall detection feature is particularly reassuring, and I love how easy it is to use."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 20, 2024</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef" alt="John and Mary Smith" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" alt="John and Mary Smith" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>John & Mary Smith</h3>
+                            <p class="testimonial-title">Retired Couple</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"We both have chronic conditions that require regular monitoring. VitalTrack Pro has simplified our healthcare routine and helped us stay on top of our medications. The interface is senior-friendly!"</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 15, 2024</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1581093458791-9f3c3250a8b7" alt="Helen Chen" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" alt="Helen Chen" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Helen Chen</h3>
+                            <p class="testimonial-title">Active Senior</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"I'm 82 and still love to travel. VitalTrack Pro gives me the confidence to explore new places while knowing help is just a button press away. The battery life is impressive!"</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 10, 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-section" id="athletes-section">
+        <h2>Athletes</h2>
+        <div class="category-intro">
+            <p>See how professional and amateur athletes are using VitalTrack Pro to optimize their performance and recovery.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" alt="David Martinez" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="David Martinez" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>David Martinez</h3>
+                            <p class="testimonial-title">Professional Runner</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The advanced metrics and recovery tracking have taken my training to the next level. I can precisely monitor my performance and adjust my training based on real data."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 22, 2024</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd" alt="Sophie Anderson" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80" alt="Sophie Anderson" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Sophie Anderson</h3>
+                            <p class="testimonial-title">Triathlete</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Training for triathlons requires precise monitoring of multiple metrics. VitalTrack Pro's comprehensive tracking and waterproof design make it perfect for all three disciplines."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 18, 2024</p>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" alt="Alex Thompson" class="testimonial-image">
+                <div class="testimonial-content">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Alex Thompson" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h3>Alex Thompson</h3>
+                            <p class="testimonial-title">Basketball Player</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The injury prevention features are incredible. By monitoring my movement patterns and recovery, I've been able to avoid several potential injuries during the season."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-date">Posted on March 14, 2024</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Share Your Story</h2>
+            <p>Join our community of satisfied users and share how VitalTrack Pro has transformed your health journey.</p>
+            <a href="contact.html" class="cta-button">Write a Review</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 VitalTrack Pro. All rights reserved.</p>
+    </footer>
+</body>
+</html> 

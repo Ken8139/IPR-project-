@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connectivity Problems - VitalTrack Pro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #102a3f;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        .guide-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--secondary-purple);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .guide-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .guide-section ol, .guide-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 1rem;
+        }
+
+        .note {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--primary-violet);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note i {
+            color: var(--primary-violet);
+            margin-right: 0.5rem;
+        }
+
+        .content-switch {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-violet);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .content-switch:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-section {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .issue-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .issue-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .issue-card h4 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-card p {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .solution-list {
+            margin-top: 1rem;
+        }
+
+        .solution-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .solution-list li:before {
+            content: "✓";
+            color: var(--primary-violet);
+            position: absolute;
+            left: 0;
+        }
+
+        .troubleshooting-section {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .troubleshooting-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .troubleshooting-steps {
+            counter-reset: step;
+        }
+
+        .troubleshooting-steps li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .troubleshooting-steps li:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.9rem;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .connection-status i {
+            color: var(--primary-violet);
+        }
+
+        .connection-status.connected i {
+            color: #4CAF50;
+        }
+
+        .connection-status.disconnected i {
+            color: #F44336;
+        }
+
+        @media (max-width: 768px) {
+            .guide-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-content {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .content-switch {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../features.html">Features</a>
+            <a href="../benefits.html">Benefits</a>
+            <a href="../pricing.html">Pricing</a>
+            <a href="../testimonials.html">Testimonials</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../help-center.html">Help Center</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <h1>Connectivity Problems</h1>
+        <p>Learn how to troubleshoot and resolve connectivity issues with your VitalTrack Pro device.</p>
+    </section>
+
+    <a href="#guide-content" class="content-switch">
+        <i class="fas fa-arrow-down"></i>
+        <span>View Guide</span>
+    </a>
+
+    <div id="guide-content" class="guide-content">
+        <div class="guide-section">
+            <h2>Connectivity Troubleshooting Guide</h2>
+            <p>This guide will help you resolve common connectivity issues with your VitalTrack Pro device.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bluetooth"></i>
+                    <h4>Bluetooth</h4>
+                    <p>Fix Bluetooth pairing and connection issues</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-wifi"></i>
+                    <h4>WiFi</h4>
+                    <p>Resolve WiFi connectivity problems</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sync"></i>
+                    <h4>Data Sync</h4>
+                    <p>Solve data synchronization issues</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h4>Network</h4>
+                    <p>Fix network-related problems</p>
+                </div>
+            </div>
+
+            <h3>Bluetooth Connectivity</h3>
+            <div class="issue-section">
+                <div class="issue-card">
+                    <h4>Device Not Pairing</h4>
+                    <p>If your device won't pair with your phone:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Ensure Bluetooth is enabled on both devices</li>
+                        <li>Check device compatibility</li>
+                        <li>Restart both devices</li>
+                        <li>Clear Bluetooth cache</li>
+                        <li>Update device firmware</li>
+                    </ol>
+                </div>
+                <div class="issue-card">
+                    <h4>Connection Drops</h4>
+                    <p>If your connection keeps dropping:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Check device distance (max 10 meters)</li>
+                        <li>Remove potential interference</li>
+                        <li>Reset Bluetooth connection</li>
+                        <li>Update device software</li>
+                        <li>Check battery levels</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Pro Tip:</strong> Keep your device and phone within 3 meters for optimal Bluetooth connectivity and avoid placing them near other electronic devices that may cause interference.
+            </div>
+
+            <h3>WiFi Connectivity</h3>
+            <div class="issue-section">
+                <div class="issue-card">
+                    <h4>Can't Connect to WiFi</h4>
+                    <p>If you're having trouble connecting to WiFi:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Check WiFi signal strength</li>
+                        <li>Verify network credentials</li>
+                        <li>Restart router and device</li>
+                        <li>Check for network restrictions</li>
+                        <li>Update device firmware</li>
+                    </ol>
+                </div>
+                <div class="issue-card">
+                    <h4>Slow WiFi Connection</h4>
+                    <p>To improve WiFi performance:</p>
+                    <ul class="solution-list">
+                        <li>Move closer to the router</li>
+                        <li>Reduce interference</li>
+                        <li>Check network congestion</li>
+                        <li>Update router firmware</li>
+                        <li>Try a different frequency band</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Data Synchronization</h3>
+            <div class="issue-section">
+                <div class="issue-card">
+                    <h4>Data Not Syncing</h4>
+                    <p>If your data isn't syncing properly:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Check internet connection</li>
+                        <li>Verify app permissions</li>
+                        <li>Clear app cache</li>
+                        <li>Restart the app</li>
+                        <li>Update app and device firmware</li>
+                    </ol>
+                </div>
+                <div class="issue-card">
+                    <h4>Sync Errors</h4>
+                    <p>To resolve sync errors:</p>
+                    <ul class="solution-list">
+                        <li>Check storage space</li>
+                        <li>Verify account settings</li>
+                        <li>Clear sync history</li>
+                        <li>Reset sync settings</li>
+                        <li>Contact support if needed</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Network Issues</h3>
+            <div class="issue-section">
+                <div class="issue-card">
+                    <h4>Network Unavailable</h4>
+                    <p>If you can't access the network:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Check network status</li>
+                        <li>Verify network settings</li>
+                        <li>Restart network adapter</li>
+                        <li>Check for outages</li>
+                        <li>Update network drivers</li>
+                    </ol>
+                </div>
+                <div class="issue-card">
+                    <h4>Security Issues</h4>
+                    <p>To resolve security-related problems:</p>
+                    <ul class="solution-list">
+                        <li>Verify security settings</li>
+                        <li>Check firewall settings</li>
+                        <li>Update security certificates</li>
+                        <li>Reset security preferences</li>
+                        <li>Contact network administrator</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Need More Help?</strong> Visit our <a href="../help-center.html" style="color: var(--primary-violet);">Help Center</a> for additional resources, or check out our <a href="../video-tutorials.html" style="color: var(--primary-violet);">video tutorials</a> for visual guidance. Our support team is available 24/7 to assist you.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

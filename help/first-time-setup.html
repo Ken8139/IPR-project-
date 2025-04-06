@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Time Setup - VitalTrack Pro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        .guide-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--secondary-purple);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .guide-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .guide-section ol, .guide-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 1rem;
+        }
+
+        .note {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--primary-violet);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note i {
+            color: var(--primary-violet);
+            margin-right: 0.5rem;
+        }
+
+        .content-switch {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-violet);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .content-switch:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .guide-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-content {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .content-switch {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../features.html">Features</a>
+            <a href="../benefits.html">Benefits</a>
+            <a href="../pricing.html">Pricing</a>
+            <a href="../testimonials.html">Testimonials</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../help-center.html">Help Center</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <h1>First Time Setup Guide</h1>
+        <p>Complete guide to setting up your VitalTrack Pro device for optimal performance and accurate health monitoring.</p>
+    </section>
+
+    <a href="#guide-content" class="content-switch">
+        <i class="fas fa-arrow-down"></i>
+        <span>View Guide</span>
+    </a>
+
+    <div id="guide-content" class="guide-content">
+        <div class="guide-section">
+            <h2>Initial Device Setup</h2>
+            <p>This comprehensive guide will walk you through the complete setup process for your VitalTrack Pro device. Follow these steps carefully to ensure optimal performance and accurate health monitoring.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-battery-full"></i>
+                    <h4>Power & Charging</h4>
+                    <p>Learn about battery management and charging best practices</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bluetooth"></i>
+                    <h4>Connectivity</h4>
+                    <p>Set up Bluetooth and Wi-Fi connections</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-cog"></i>
+                    <h4>Personalization</h4>
+                    <p>Customize device settings to your preferences</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h4>Health Monitoring</h4>
+                    <p>Configure health tracking features</p>
+                </div>
+            </div>
+
+            <h3>Step 1: Power and Initial Setup</h3>
+            <ol>
+                <li><span class="step-number">1</span> Charge your device:
+                    <ul>
+                        <li>Connect the charging cable to a power source</li>
+                        <li>Attach the magnetic charger to the device</li>
+                        <li>Wait for the charging indicator to show full battery</li>
+                        <li>Ensure at least 80% charge before proceeding</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Power on the device:
+                    <ul>
+                        <li>Press and hold the power button for 3 seconds</li>
+                        <li>Wait for the startup animation</li>
+                        <li>Select your preferred language</li>
+                        <li>Set the current date and time</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Pro Tip:</strong> Keep your device charged between 20% and 80% for optimal battery health. Avoid letting it completely discharge.
+            </div>
+
+            <h3>Step 2: Device Personalization</h3>
+            <ol>
+                <li><span class="step-number">1</span> Configure display settings:
+                    <ul>
+                        <li>Adjust screen brightness</li>
+                        <li>Set screen timeout duration</li>
+                        <li>Choose your preferred watch face</li>
+                        <li>Configure always-on display settings</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Set up notifications:
+                    <ul>
+                        <li>Enable/disable app notifications</li>
+                        <li>Configure vibration patterns</li>
+                        <li>Set up do not disturb schedules</li>
+                        <li>Customize notification priorities</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Configure system preferences:
+                    <ul>
+                        <li>Set measurement units (metric/imperial)</li>
+                        <li>Configure time format (12/24 hour)</li>
+                        <li>Set up weather location</li>
+                        <li>Enable/disable system sounds</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Step 3: Health Monitoring Setup</h3>
+            <ol>
+                <li><span class="step-number">1</span> Configure basic health tracking:
+                    <ul>
+                        <li>Set up heart rate monitoring</li>
+                        <li>Configure step counting</li>
+                        <li>Enable sleep tracking</li>
+                        <li>Set up activity goals</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Set up advanced features:
+                    <ul>
+                        <li>Configure blood oxygen monitoring</li>
+                        <li>Set up stress tracking</li>
+                        <li>Enable breathing exercises</li>
+                        <li>Configure workout detection</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Configure health alerts:
+                    <ul>
+                        <li>Set up heart rate zones</li>
+                        <li>Configure high/low heart rate alerts</li>
+                        <li>Set up inactivity reminders</li>
+                        <li>Configure emergency SOS</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="note">
+                <i class="fas fa-exclamation-circle"></i>
+                <strong>Important:</strong> For accurate health monitoring, ensure the device is properly fitted and the sensors are clean. Regular calibration is recommended for optimal performance.
+            </div>
+
+            <h3>Step 4: Connectivity Setup</h3>
+            <ol>
+                <li><span class="step-number">1</span> Set up Bluetooth:
+                    <ul>
+                        <li>Enable Bluetooth on your smartphone</li>
+                        <li>Pair with VitalTrack Pro</li>
+                        <li>Configure auto-connect settings</li>
+                        <li>Test the connection</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Configure Wi-Fi:
+                    <ul>
+                        <li>Connect to your home network</li>
+                        <li>Set up automatic updates</li>
+                        <li>Configure data sync preferences</li>
+                        <li>Enable cloud backup</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Set up data sharing:
+                    <ul>
+                        <li>Configure health app integration</li>
+                        <li>Set up data export options</li>
+                        <li>Configure privacy settings</li>
+                        <li>Set up emergency contact sharing</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Step 5: Final Configuration</h3>
+            <ol>
+                <li><span class="step-number">1</span> Complete device calibration:
+                    <ul>
+                        <li>Follow the on-screen calibration process</li>
+                        <li>Ensure proper device placement</li>
+                        <li>Complete all required calibration steps</li>
+                        <li>Verify sensor accuracy</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Set up backup and security:
+                    <ul>
+                        <li>Configure device lock</li>
+                        <li>Set up data backup</li>
+                        <li>Enable find my device</li>
+                        <li>Configure privacy settings</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Test all features:
+                    <ul>
+                        <li>Verify health monitoring accuracy</li>
+                        <li>Test notification delivery</li>
+                        <li>Check connectivity features</li>
+                        <li>Verify emergency features</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Need More Help?</strong> Visit our <a href="../help-center.html" style="color: var(--primary-violet);">Help Center</a> for additional resources, or check out our <a href="../video-tutorials.html" style="color: var(--primary-violet);">video tutorials</a> for visual guidance. Our support team is available 24/7 to assist you.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

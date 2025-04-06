@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Metrics - VitalTrack Pro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        .guide-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--secondary-purple);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .guide-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .guide-section ol, .guide-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 1rem;
+        }
+
+        .note {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--primary-violet);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note i {
+            color: var(--primary-violet);
+            margin-right: 0.5rem;
+        }
+
+        .content-switch {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-violet);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .content-switch:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .metrics-section {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .metrics-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .metric-card h4 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card p {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-range {
+            color: var(--secondary-purple);
+            font-size: 0.9rem;
+        }
+
+        .interpretation-section {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .interpretation-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .interpretation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .interpretation-table th,
+        .interpretation-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .interpretation-table th {
+            color: var(--primary-violet);
+            font-weight: bold;
+        }
+
+        .interpretation-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .guide-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-content {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .content-switch {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .interpretation-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../features.html">Features</a>
+            <a href="../benefits.html">Benefits</a>
+            <a href="../pricing.html">Pricing</a>
+            <a href="../testimonials.html">Testimonials</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../help-center.html">Help Center</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <h1>Understanding Metrics</h1>
+        <p>Learn about the health metrics tracked by your VitalTrack Pro device and how to interpret them.</p>
+    </section>
+
+    <a href="#guide-content" class="content-switch">
+        <i class="fas fa-arrow-down"></i>
+        <span>View Guide</span>
+    </a>
+
+    <div id="guide-content" class="guide-content">
+        <div class="guide-section">
+            <h2>Health Metrics Overview</h2>
+            <p>Your VitalTrack Pro device tracks various health metrics to help you monitor your well-being. Here's what each metric means and how to interpret it.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-heartbeat"></i>
+                    <h4>Heart Rate</h4>
+                    <p>Monitor your heart health</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-walking"></i>
+                    <h4>Activity</h4>
+                    <p>Track your daily movement</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-moon"></i>
+                    <h4>Sleep</h4>
+                    <p>Analyze your sleep patterns</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-thermometer-half"></i>
+                    <h4>Temperature</h4>
+                    <p>Monitor body temperature</p>
+                </div>
+            </div>
+
+            <h3>Heart Rate Metrics</h3>
+            <div class="metrics-section">
+                <div class="metric-card">
+                    <h4>Resting Heart Rate</h4>
+                    <p>Your heart rate when at complete rest</p>
+                    <p class="metric-range">Normal Range: 60-100 bpm</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Active Heart Rate</h4>
+                    <p>Heart rate during physical activity</p>
+                    <p class="metric-range">Varies based on activity intensity</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Heart Rate Variability</h4>
+                    <p>Variation in time between heartbeats</p>
+                    <p class="metric-range">Higher values indicate better recovery</p>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Pro Tip:</strong> Track your heart rate trends over time to understand your cardiovascular health better.
+            </div>
+
+            <h3>Activity Metrics</h3>
+            <div class="metrics-section">
+                <div class="metric-card">
+                    <h4>Steps</h4>
+                    <p>Daily step count</p>
+                    <p class="metric-range">Recommended: 10,000 steps/day</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Active Minutes</h4>
+                    <p>Time spent in moderate to vigorous activity</p>
+                    <p class="metric-range">Recommended: 30 minutes/day</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Calories Burned</h4>
+                    <p>Estimated energy expenditure</p>
+                    <p class="metric-range">Based on activity and personal data</p>
+                </div>
+            </div>
+
+            <h3>Sleep Metrics</h3>
+            <div class="interpretation-section">
+                <table class="interpretation-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Description</th>
+                            <th>Normal Range</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sleep Duration</td>
+                            <td>Total time spent asleep</td>
+                            <td>7-9 hours</td>
+                        </tr>
+                        <tr>
+                            <td>Deep Sleep</td>
+                            <td>Restorative sleep phase</td>
+                            <td>20-25% of total sleep</td>
+                        </tr>
+                        <tr>
+                            <td>REM Sleep</td>
+                            <td>Dream sleep phase</td>
+                            <td>20-25% of total sleep</td>
+                        </tr>
+                        <tr>
+                            <td>Sleep Efficiency</td>
+                            <td>Time asleep vs. time in bed</td>
+                            <td>85% or higher</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Temperature Metrics</h3>
+            <div class="metrics-section">
+                <div class="metric-card">
+                    <h4>Body Temperature</h4>
+                    <p>Core body temperature</p>
+                    <p class="metric-range">Normal Range: 97.8°F - 99.1°F</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Skin Temperature</h4>
+                    <p>Surface temperature variations</p>
+                    <p class="metric-range">Varies with environment</p>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Need More Help?</strong> Visit our <a href="../help-center.html" style="color: var(--primary-violet);">Help Center</a> for additional resources, or check out our <a href="../video-tutorials.html" style="color: var(--primary-violet);">video tutorials</a> for visual guidance. Our support team is available 24/7 to assist you.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

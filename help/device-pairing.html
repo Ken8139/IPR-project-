@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Pairing Guide - VitalTrack Pro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        .guide-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--secondary-purple);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .guide-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .guide-section ol, .guide-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 1rem;
+        }
+
+        .note {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--primary-violet);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note i {
+            color: var(--primary-violet);
+            margin-right: 0.5rem;
+        }
+
+        .content-switch {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-violet);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .content-switch:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshooting-section {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff4444;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .troubleshooting-section h3 {
+            color: #ff4444;
+        }
+
+        @media (max-width: 768px) {
+            .guide-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-content {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .content-switch {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../features.html">Features</a>
+            <a href="../benefits.html">Benefits</a>
+            <a href="../pricing.html">Pricing</a>
+            <a href="../testimonials.html">Testimonials</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../help-center.html">Help Center</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <h1>Device Pairing Guide</h1>
+        <p>Learn how to pair your VitalTrack Pro device with your smartphone and other devices for seamless connectivity.</p>
+    </section>
+
+    <a href="#guide-content" class="content-switch">
+        <i class="fas fa-arrow-down"></i>
+        <span>View Guide</span>
+    </a>
+
+    <div id="guide-content" class="guide-content">
+        <div class="guide-section">
+            <h2>Device Pairing Process</h2>
+            <p>This guide will help you pair your VitalTrack Pro device with your smartphone and other compatible devices. Follow these steps carefully to ensure a successful connection.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Smartphone Pairing</h4>
+                    <p>Connect your device to your smartphone</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-wifi"></i>
+                    <h4>Wi-Fi Setup</h4>
+                    <p>Configure wireless network connections</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sync"></i>
+                    <h4>Data Sync</h4>
+                    <p>Set up automatic data synchronization</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Security</h4>
+                    <p>Configure connection security settings</p>
+                </div>
+            </div>
+
+            <h3>Step 1: Smartphone Pairing</h3>
+            <ol>
+                <li><span class="step-number">1</span> Prepare your smartphone:
+                    <ul>
+                        <li>Ensure Bluetooth is enabled</li>
+                        <li>Update the VitalTrack app to the latest version</li>
+                        <li>Check for system updates on your phone</li>
+                        <li>Clear Bluetooth cache if needed</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Prepare your device:
+                    <ul>
+                        <li>Ensure the device is charged (at least 50%)</li>
+                        <li>Power on the device</li>
+                        <li>Enable pairing mode (press and hold the power button for 5 seconds)</li>
+                        <li>Wait for the pairing indicator to flash blue</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Complete the pairing:
+                    <ul>
+                        <li>Open the VitalTrack app on your smartphone</li>
+                        <li>Tap "Add New Device"</li>
+                        <li>Select "VitalTrack Pro" from the list</li>
+                        <li>Confirm the pairing code on both devices</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Pro Tip:</strong> Keep your smartphone and device within 3 feet of each other during the pairing process for the best connection.
+            </div>
+
+            <h3>Step 2: Wi-Fi Configuration</h3>
+            <ol>
+                <li><span class="step-number">1</span> Connect to your network:
+                    <ul>
+                        <li>Open the VitalTrack app</li>
+                        <li>Go to Device Settings > Wi-Fi</li>
+                        <li>Select your home network</li>
+                        <li>Enter your Wi-Fi password</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Configure network settings:
+                    <ul>
+                        <li>Set up automatic updates</li>
+                        <li>Configure data sync preferences</li>
+                        <li>Enable cloud backup</li>
+                        <li>Set up network priority</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Step 3: Data Synchronization</h3>
+            <ol>
+                <li><span class="step-number">1</span> Set up automatic sync:
+                    <ul>
+                        <li>Configure sync frequency</li>
+                        <li>Select data types to sync</li>
+                        <li>Set up sync schedules</li>
+                        <li>Enable background sync</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Configure cloud backup:
+                    <ul>
+                        <li>Enable automatic backups</li>
+                        <li>Set backup frequency</li>
+                        <li>Select backup content</li>
+                        <li>Configure storage settings</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="troubleshooting-section">
+                <h3>Troubleshooting Common Issues</h3>
+                <ol>
+                    <li><span class="step-number">1</span> Device not found:
+                        <ul>
+                            <li>Ensure Bluetooth is enabled on both devices</li>
+                            <li>Restart both devices</li>
+                            <li>Clear Bluetooth cache</li>
+                            <li>Update device firmware</li>
+                        </ul>
+                    </li>
+                    <li><span class="step-number">2</span> Connection drops:
+                        <ul>
+                            <li>Check device distance</li>
+                            <li>Remove potential interference</li>
+                            <li>Reset network settings</li>
+                            <li>Update device drivers</li>
+                        </ul>
+                    </li>
+                    <li><span class="step-number">3</span> Sync issues:
+                        <ul>
+                            <li>Check internet connection</li>
+                            <li>Verify account settings</li>
+                            <li>Clear app cache</li>
+                            <li>Reset sync settings</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Need More Help?</strong> Visit our <a href="../help-center.html" style="color: var(--primary-violet);">Help Center</a> for additional resources, or check out our <a href="../video-tutorials.html" style="color: var(--primary-violet);">video tutorials</a> for visual guidance. Our support team is available 24/7 to assist you.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

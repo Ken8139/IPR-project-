@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Management - VitalTrack Pro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        .guide-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--secondary-purple);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .guide-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .guide-section ol, .guide-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 1rem;
+        }
+
+        .note {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--primary-violet);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note i {
+            color: var(--primary-violet);
+            margin-right: 0.5rem;
+        }
+
+        .content-switch {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-violet);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .content-switch:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .data-section {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .data-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .data-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .data-card h4 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .data-card p {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .data-steps {
+            counter-reset: step;
+        }
+
+        .data-steps li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .data-steps li:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.9rem;
+        }
+
+        .data-list {
+            margin-top: 1rem;
+        }
+
+        .data-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .data-list li:before {
+            content: "✓";
+            color: var(--primary-violet);
+            position: absolute;
+            left: 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .data-table th, .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--benefit-card);
+        }
+
+        .data-table th {
+            color: var(--primary-violet);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .guide-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-content {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .content-switch {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .data-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../features.html">Features</a>
+            <a href="../benefits.html">Benefits</a>
+            <a href="../pricing.html">Pricing</a>
+            <a href="../testimonials.html">Testimonials</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../help-center.html">Help Center</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <h1>Data Management</h1>
+        <p>Learn how to manage and organize your health data effectively.</p>
+    </section>
+
+    <a href="#guide-content" class="content-switch">
+        <i class="fas fa-arrow-down"></i>
+        <span>View Guide</span>
+    </a>
+
+    <div id="guide-content" class="guide-content">
+        <div class="guide-section">
+            <h2>Data Management Guide</h2>
+            <p>This guide will help you understand and manage your health data effectively.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-database"></i>
+                    <h4>Data Storage</h4>
+                    <p>Manage your data storage</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sync"></i>
+                    <h4>Data Sync</h4>
+                    <p>Sync across devices</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-export"></i>
+                    <h4>Data Export</h4>
+                    <p>Export your health data</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-trash-alt"></i>
+                    <h4>Data Cleanup</h4>
+                    <p>Manage data retention</p>
+                </div>
+            </div>
+
+            <h3>Data Storage</h3>
+            <div class="data-section">
+                <div class="data-card">
+                    <h4>Storage Management</h4>
+                    <p>Manage your data storage:</p>
+                    <ol class="data-steps">
+                        <li>Check storage usage</li>
+                        <li>Review data types</li>
+                        <li>Optimize storage</li>
+                        <li>Set storage limits</li>
+                        <li>Monitor usage</li>
+                    </ol>
+                </div>
+                <div class="data-card">
+                    <h4>Storage Types</h4>
+                    <p>Types of data stored:</p>
+                    <ul class="data-list">
+                        <li>Health metrics</li>
+                        <li>Activity logs</li>
+                        <li>Sleep records</li>
+                        <li>Device settings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Pro Tip:</strong> Regularly review your storage usage to ensure optimal performance and data availability.
+            </div>
+
+            <h3>Data Synchronization</h3>
+            <div class="data-section">
+                <div class="data-card">
+                    <h4>Sync Settings</h4>
+                    <p>Configure data sync:</p>
+                    <ol class="data-steps">
+                        <li>Enable auto-sync</li>
+                        <li>Select sync frequency</li>
+                        <li>Choose sync devices</li>
+                        <li>Set sync preferences</li>
+                        <li>Monitor sync status</li>
+                    </ol>
+                </div>
+                <div class="data-card">
+                    <h4>Sync Options</h4>
+                    <table class="data-table">
+                        <tr>
+                            <th>Option</th>
+                            <th>Frequency</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>Real-time</td>
+                            <td>Continuous</td>
+                            <td>Instant sync</td>
+                        </tr>
+                        <tr>
+                            <td>Daily</td>
+                            <td>Once per day</td>
+                            <td>Scheduled sync</td>
+                        </tr>
+                        <tr>
+                            <td>Manual</td>
+                            <td>On demand</td>
+                            <td>User-initiated</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <h3>Data Export</h3>
+            <div class="data-section">
+                <div class="data-card">
+                    <h4>Export Options</h4>
+                    <p>Export your data:</p>
+                    <ol class="data-steps">
+                        <li>Select data range</li>
+                        <li>Choose format</li>
+                        <li>Set export options</li>
+                        <li>Download data</li>
+                        <li>Verify export</li>
+                    </ol>
+                </div>
+                <div class="data-card">
+                    <h4>Export Formats</h4>
+                    <p>Available formats:</p>
+                    <ul class="data-list">
+                        <li>CSV</li>
+                        <li>JSON</li>
+                        <li>PDF</li>
+                        <li>Excel</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Data Cleanup</h3>
+            <div class="data-section">
+                <div class="data-card">
+                    <h4>Cleanup Process</h4>
+                    <p>Manage data retention:</p>
+                    <ol class="data-steps">
+                        <li>Review data age</li>
+                        <li>Set retention rules</li>
+                        <li>Configure auto-delete</li>
+                        <li>Archive old data</li>
+                        <li>Monitor cleanup</li>
+                    </ol>
+                </div>
+                <div class="data-card">
+                    <h4>Cleanup Options</h4>
+                    <p>Available options:</p>
+                    <ul class="data-list">
+                        <li>Auto-delete old data</li>
+                        <li>Archive inactive data</li>
+                        <li>Compress storage</li>
+                        <li>Manual cleanup</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Need More Help?</strong> Visit our <a href="../help-center.html" style="color: var(--primary-violet);">Help Center</a> for additional resources, or check out our <a href="../video-tutorials.html" style="color: var(--primary-violet);">video tutorials</a> for visual guidance. Our support team is available 24/7 to assist you.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

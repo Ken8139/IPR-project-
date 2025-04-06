@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalTrack Pro - Smart Health Monitoring</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #1a1a1a 100%);
+            --text: #333333;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-text: #333333;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(100, 181, 246, 0.9));
+            --feature-bg: rgba(255, 255, 255, 0.95);
+            --benefit-bg: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #1a1a1a 100%);
+            --benefit-card: rgba(255, 255, 255, 0.9);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        /* Light theme variables */
+        [data-theme="light"] {
+            --background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+            --text: #333333;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-text: #333333;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(100, 181, 246, 0.9));
+            --feature-bg: rgba(255, 255, 255, 0.95);
+            --benefit-bg: linear-gradient(135deg, #ffffff 0%, #f0f0f0 50%, #e0e0e0 100%);
+            --benefit-card: rgba(255, 255, 255, 0.95);
+            --cta-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dark theme variables */
+        [data-theme="dark"] {
+            --background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%);
+            --text: #ffffff;
+            --card-bg: rgba(45, 45, 45, 0.95);
+            --nav-bg: rgba(0, 0, 0, 0.95);
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: rgba(45, 45, 45, 0.95);
+            --benefit-bg: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #000000 100%);
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --cta-bg: rgba(45, 45, 45, 0.95);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Theme toggle switch */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            padding: 8px 16px;
+            border-radius: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .theme-toggle i {
+            color: var(--primary-violet);
+            font-size: 1.2rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--benefit-card);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--primary-violet);
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-violet);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: white;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            transition: var(--transition);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h1 {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-purple);
+        }
+
+        .nav-button {
+            background-color: var(--primary-violet);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-purple);
+        }
+
+        /* Add logo styles */
+        .navbar .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--primary-violet);
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .hero {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.4), rgba(100, 181, 246, 0.4)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+        }
+
+        .section-content {
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            text-align: center;
+            padding: var(--section-padding);
+        }
+
+        .section-title {
+            color: var(--primary-violet);
+            font-size: var(--heading-size);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: var(--subheading-size);
+            color: var(--text);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: var(--card-padding);
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: -2rem;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .icon {
+            width: var(--icon-size);
+            height: var(--icon-size);
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            color: var(--primary-violet);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .card-text {
+            color: var(--text);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+        }
+
+        .features {
+            background-color: var(--feature-bg);
+        }
+
+        .benefits {
+            background-color: var(--benefit-bg);
+            color: white;
+        }
+
+        .statistics {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.8), rgba(100, 181, 246, 0.8)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 6rem 2rem;
+        }
+
+        .statistics .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .statistics .card-title {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .statistics .card-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+        }
+
+        .statistics .section-title {
+            color: white;
+        }
+
+        .statistics .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-section {
+            background-color: var(--cta-bg);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: var(--text-size);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary-violet);
+            color: var(--primary-violet);
+        }
+
+        footer {
+            background-color: var(--nav-bg);
+            color: var(--nav-text);
+            text-align: center;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <i class="fas fa-sun"></i>
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="benefits.html">Benefits</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="blog.html">Blog</a>
+            <a href="help-center.html">Help Center</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Revolutionizing Personal Healthcare</h1>
+            <p>Experience the future of health monitoring with our AI-powered wearable technology. Track vital signs in real-time and receive instant emergency alerts.</p>
+            <a href="login.html" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="section-content">
+            <h2 class="section-title">Advanced Features</h2>
+            <p class="section-subtitle">Experience cutting-edge health monitoring with our advanced features.</p>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="card-title">AI-Powered Analysis</h3>
+                        <p class="card-text">Get personalized health insights and predictions using advanced machine learning algorithms.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="card-title">Real-time Analytics</h3>
+                        <p class="card-text">Monitor your health metrics in real-time with detailed analytics and trends.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3 class="card-title">Smart Alerts</h3>
+                        <p class="card-text">Receive instant notifications for any concerning health patterns or emergencies.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3 class="card-title">Comprehensive Monitoring</h3>
+                        <p class="card-text">Track multiple vital signs including heart rate, blood pressure, and oxygen levels.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="card-title">Mobile App Integration</h3>
+                        <p class="card-text">Access your health data anytime, anywhere through our intuitive mobile application.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="card-title">Data Security</h3>
+                        <p class="card-text">Your health data is protected with enterprise-grade encryption and security measures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <div class="section-content">
+            <h2 class="section-title">Why Choose VitalTrack Pro?</h2>
+            <p class="section-subtitle">Join thousands of users who trust VitalTrack Pro for their health monitoring needs.</p>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="card-title">Trusted by Millions</h3>
+                    <p class="card-text">Join a community of over 1 million satisfied users worldwide.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3 class="card-title">Award-Winning Technology</h3>
+                    <p class="card-text">Recognized for innovation and excellence in health monitoring.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="card-title">24/7 Support</h3>
+                    <p class="card-text">Get help whenever you need it with our dedicated support team.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="statistics">
+        <div class="section-content">
+            <h2 class="section-title">Statistics</h2>
+            <p class="section-subtitle">Our Impact in Numbers</p>
+            <div class="grid">
+                <div class="card">
+                    <h3 class="card-title">1M+</h3>
+                    <p class="card-text">Active Users</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">99.9%</h3>
+                    <p class="card-text">Accuracy Rate</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">24/7</h3>
+                    <p class="card-text">Monitoring</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">50+</h3>
+                    <p class="card-text">Health Metrics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="section-content">
+            <h2 class="section-title">Ready to Transform Your Health Journey?</h2>
+            <p class="section-subtitle">Join thousands of satisfied users who have already experienced the future of health monitoring.</p>
+            <div class="cta-buttons">
+                <a href="pricing.html" class="cta-button">View Pricing Plans</a>
+                <a href="contact.html" class="cta-button secondary">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 VitalTrack Pro. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            themeToggle.checked = savedTheme === 'light';
+        }
+
+        // Toggle theme
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                html.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

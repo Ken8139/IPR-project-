@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Management - VitalTrack Pro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        .guide-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--secondary-purple);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .guide-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .guide-section ol, .guide-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 1rem;
+        }
+
+        .note {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--primary-violet);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note i {
+            color: var(--primary-violet);
+            margin-right: 0.5rem;
+        }
+
+        .content-switch {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-violet);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .content-switch:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .subscription-section {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .subscription-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .subscription-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .subscription-card h4 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .subscription-card p {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .subscription-steps {
+            counter-reset: step;
+        }
+
+        .subscription-steps li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .subscription-steps li:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.9rem;
+        }
+
+        .subscription-list {
+            margin-top: 1rem;
+        }
+
+        .subscription-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .subscription-list li:before {
+            content: "✓";
+            color: var(--primary-violet);
+            position: absolute;
+            left: 0;
+        }
+
+        .subscription-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .subscription-table th, .subscription-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--benefit-card);
+        }
+
+        .subscription-table th {
+            color: var(--primary-violet);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .guide-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-content {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .content-switch {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .subscription-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../features.html">Features</a>
+            <a href="../benefits.html">Benefits</a>
+            <a href="../pricing.html">Pricing</a>
+            <a href="../testimonials.html">Testimonials</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../help-center.html">Help Center</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <h1>Subscription Management</h1>
+        <p>Learn how to manage your VitalTrack Pro subscription and billing.</p>
+    </section>
+
+    <a href="#guide-content" class="content-switch">
+        <i class="fas fa-arrow-down"></i>
+        <span>View Guide</span>
+    </a>
+
+    <div id="guide-content" class="guide-content">
+        <div class="guide-section">
+            <h2>Subscription Management Guide</h2>
+            <p>This guide will help you manage your subscription and billing preferences.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h4>Billing</h4>
+                    <p>Manage payment methods</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sync"></i>
+                    <h4>Renewal</h4>
+                    <p>Subscription renewal options</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cog"></i>
+                    <h4>Settings</h4>
+                    <p>Subscription preferences</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-history"></i>
+                    <h4>History</h4>
+                    <p>Billing history</p>
+                </div>
+            </div>
+
+            <h3>Billing Management</h3>
+            <div class="subscription-section">
+                <div class="subscription-card">
+                    <h4>Payment Methods</h4>
+                    <p>Manage your payment information:</p>
+                    <ol class="subscription-steps">
+                        <li>Add new payment method</li>
+                        <li>Update existing cards</li>
+                        <li>Set default payment</li>
+                        <li>Remove payment methods</li>
+                        <li>View payment history</li>
+                    </ol>
+                </div>
+                <div class="subscription-card">
+                    <h4>Accepted Payment Methods</h4>
+                    <p>Available options:</p>
+                    <ul class="subscription-list">
+                        <li>Credit/Debit Cards</li>
+                        <li>PayPal</li>
+                        <li>Bank Transfer</li>
+                        <li>Digital Wallets</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Pro Tip:</strong> Set up automatic payments to ensure uninterrupted service.
+            </div>
+
+            <h3>Subscription Plans</h3>
+            <div class="subscription-section">
+                <div class="subscription-card">
+                    <h4>Plan Management</h4>
+                    <p>Manage your subscription:</p>
+                    <ol class="subscription-steps">
+                        <li>View current plan</li>
+                        <li>Upgrade/downgrade plan</li>
+                        <li>Change billing cycle</li>
+                        <li>Add family members</li>
+                        <li>Review plan benefits</li>
+                    </ol>
+                </div>
+                <div class="subscription-card">
+                    <h4>Available Plans</h4>
+                    <table class="subscription-table">
+                        <tr>
+                            <th>Plan</th>
+                            <th>Features</th>
+                            <th>Price</th>
+                        </tr>
+                        <tr>
+                            <td>Basic</td>
+                            <td>Essential features</td>
+                            <td>$9.99/month</td>
+                        </tr>
+                        <tr>
+                            <td>Pro</td>
+                            <td>Advanced features</td>
+                            <td>$19.99/month</td>
+                        </tr>
+                        <tr>
+                            <td>Family</td>
+                            <td>Multiple users</td>
+                            <td>$29.99/month</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <h3>Billing Settings</h3>
+            <div class="subscription-section">
+                <div class="subscription-card">
+                    <h4>Preferences</h4>
+                    <p>Configure billing settings:</p>
+                    <ol class="subscription-steps">
+                        <li>Set billing frequency</li>
+                        <li>Choose invoice format</li>
+                        <li>Configure tax settings</li>
+                        <li>Set up notifications</li>
+                        <li>Manage receipts</li>
+                    </ol>
+                </div>
+                <div class="subscription-card">
+                    <h4>Billing Features</h4>
+                    <p>Available options:</p>
+                    <ul class="subscription-list">
+                        <li>Auto-renewal</li>
+                        <li>Invoice history</li>
+                        <li>Tax documents</li>
+                        <li>Receipt management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Subscription History</h3>
+            <div class="subscription-section">
+                <div class="subscription-card">
+                    <h4>History Management</h4>
+                    <p>View your subscription history:</p>
+                    <ol class="subscription-steps">
+                        <li>Access billing history</li>
+                        <li>View past invoices</li>
+                        <li>Download receipts</li>
+                        <li>Track plan changes</li>
+                        <li>Review payment history</li>
+                    </ol>
+                </div>
+                <div class="subscription-card">
+                    <h4>History Features</h4>
+                    <p>Available options:</p>
+                    <ul class="subscription-list">
+                        <li>Invoice archive</li>
+                        <li>Payment history</li>
+                        <li>Plan changes</li>
+                        <li>Usage reports</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Need More Help?</strong> Visit our <a href="../help-center.html" style="color: var(--primary-violet);">Help Center</a> for additional resources, or check out our <a href="../video-tutorials.html" style="color: var(--primary-violet);">video tutorials</a> for visual guidance. Our support team is available 24/7 to assist you.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

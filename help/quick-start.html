@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Start Guide - VitalTrack Pro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        .guide-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--secondary-purple);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .guide-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .guide-section ol, .guide-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 1rem;
+        }
+
+        .note {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--primary-violet);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note i {
+            color: var(--primary-violet);
+            margin-right: 0.5rem;
+        }
+
+        .content-switch {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-violet);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .content-switch:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .guide-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-content {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .content-switch {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../features.html">Features</a>
+            <a href="../benefits.html">Benefits</a>
+            <a href="../pricing.html">Pricing</a>
+            <a href="../testimonials.html">Testimonials</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../help-center.html">Help Center</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <h1>Quick Start Guide</h1>
+        <p>Get your VitalTrack Pro up and running in under 5 minutes with this easy-to-follow guide.</p>
+    </section>
+
+    <a href="#guide-content" class="content-switch">
+        <i class="fas fa-arrow-down"></i>
+        <span>View Guide</span>
+    </a>
+
+    <div id="guide-content" class="guide-content">
+        <div class="guide-section">
+            <h2>Getting Started</h2>
+            <p>Welcome to VitalTrack Pro! This comprehensive guide will help you set up your device and start monitoring your health quickly and easily. Follow these steps to get the most out of your VitalTrack Pro experience.</p>
+            
+            <h3>Step 1: Unboxing and Initial Setup</h3>
+            <ol>
+                <li><span class="step-number">1</span> Open the VitalTrack Pro package and ensure all components are present:
+                    <ul>
+                        <li>VitalTrack Pro device with pre-installed band</li>
+                        <li>Charging cable with USB-C connector</li>
+                        <li>Quick start guide (this document)</li>
+                        <li>User manual with detailed specifications</li>
+                        <li>Warranty card and registration information</li>
+                        <li>Size adjustment tool and extra band links</li>
+                        <li>Cleaning cloth for device maintenance</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Charge your device for at least 30 minutes before first use:
+                    <ul>
+                        <li>Connect the charging cable to a USB power source (5V/2A recommended)</li>
+                        <li>Attach the magnetic charging connector to the back of the device</li>
+                        <li>Wait for the charging indicator to show full battery (green light)</li>
+                        <li>Ensure the device is at least 80% charged before proceeding</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Download the VitalTrack Pro mobile app:
+                    <ul>
+                        <li>For iOS: Visit the App Store and search for "VitalTrack Pro"</li>
+                        <li>For Android: Visit the Google Play Store and search for "VitalTrack Pro"</li>
+                        <li>Install the latest version of the app (minimum requirements: iOS 13+ or Android 8+)</li>
+                        <li>Ensure your smartphone has at least 500MB of free storage</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Pro Tip:</strong> Make sure your device is fully charged before the initial setup to ensure accurate readings and complete the setup process without interruptions. A full charge typically takes about 2 hours.
+            </div>
+
+            <h3>Step 2: Device Pairing and Initial Configuration</h3>
+            <ol>
+                <li><span class="step-number">1</span> Power on your VitalTrack Pro:
+                    <ul>
+                        <li>Press and hold the power button for 3 seconds</li>
+                        <li>Wait for the device to vibrate and display the startup screen</li>
+                        <li>Follow the on-screen prompts to select your language</li>
+                        <li>Complete the initial device setup wizard</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Open the VitalTrack Pro app on your smartphone:
+                    <ul>
+                        <li>Launch the app and create a new account or sign in</li>
+                        <li>Accept the terms of service and privacy policy</li>
+                        <li>Grant necessary permissions for Bluetooth and notifications</li>
+                        <li>Enable location services for accurate GPS tracking</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Pair your device:
+                    <ul>
+                        <li>Enable Bluetooth on your smartphone</li>
+                        <li>Select "Add New Device" in the app</li>
+                        <li>Choose "VitalTrack Pro" from the list of available devices</li>
+                        <li>Confirm the pairing code on both devices</li>
+                        <li>Wait for the successful connection confirmation</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Step 3: Basic Configuration</h3>
+            <ol>
+                <li><span class="step-number">1</span> Set up your health profile:
+                    <ul>
+                        <li>Enter your personal information (age, gender, height, weight)</li>
+                        <li>Set your activity level and health goals</li>
+                        <li>Configure notification preferences</li>
+                        <li>Add emergency contacts if desired</li>
+                        <li>Set up your daily activity targets</li>
+                        <li>Configure sleep schedule preferences</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Configure device settings:
+                    <ul>
+                        <li>Set your preferred time format and date display</li>
+                        <li>Choose your measurement units (metric/imperial)</li>
+                        <li>Adjust screen brightness and timeout settings</li>
+                        <li>Configure vibration patterns for notifications</li>
+                        <li>Set up your preferred watch face</li>
+                        <li>Enable/disable specific health monitoring features</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Set up connectivity:
+                    <ul>
+                        <li>Connect to your home Wi-Fi network</li>
+                        <li>Configure automatic data sync preferences</li>
+                        <li>Set up cloud backup options</li>
+                        <li>Enable remote monitoring if desired</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Step 4: First Use and Calibration</h3>
+            <ol>
+                <li><span class="step-number">1</span> Wear the device correctly:
+                    <ul>
+                        <li>Adjust the band to fit snugly but comfortably</li>
+                        <li>Position the device on your wrist as shown in the manual</li>
+                        <li>Ensure the sensors are in contact with your skin</li>
+                        <li>Leave about one finger's width of space between the band and your wrist</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Complete initial calibration:
+                    <ul>
+                        <li>Wait for the device to complete initial calibration (about 1 minute)</li>
+                        <li>Keep your arm still during the calibration process</li>
+                        <li>Ensure you're in a well-lit environment</li>
+                        <li>Follow the on-screen instructions for sensor calibration</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Start monitoring:
+                    <ul>
+                        <li>Check that heart rate monitoring is active</li>
+                        <li>Verify that step counting has begun</li>
+                        <li>Confirm that sleep tracking is enabled</li>
+                        <li>Test the notification system</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="note">
+                <i class="fas fa-exclamation-circle"></i>
+                <strong>Important:</strong> For accurate readings, ensure the device is properly fitted and not too loose or tight on your wrist. The device should be snug enough to maintain contact with your skin but not so tight that it restricts blood flow. Regular cleaning of the sensors is also recommended for optimal performance.
+            </div>
+
+            <h3>Step 5: Advanced Features Setup</h3>
+            <ol>
+                <li><span class="step-number">1</span> Configure health monitoring:
+                    <ul>
+                        <li>Set up heart rate zones and alerts</li>
+                        <li>Configure blood oxygen monitoring</li>
+                        <li>Enable stress tracking features</li>
+                        <li>Set up breathing exercises</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">2</span> Set up activity tracking:
+                    <ul>
+                        <li>Configure workout detection</li>
+                        <li>Set up activity goals</li>
+                        <li>Enable GPS tracking for outdoor activities</li>
+                        <li>Customize activity reminders</li>
+                    </ul>
+                </li>
+                <li><span class="step-number">3</span> Configure sleep tracking:
+                    <ul>
+                        <li>Set your sleep schedule</li>
+                        <li>Enable sleep stage monitoring</li>
+                        <li>Configure smart alarm settings</li>
+                        <li>Set up sleep quality tracking</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Next Steps and Additional Resources</h3>
+            <p>Now that you've completed the basic setup, you can explore these additional features and resources:</p>
+            <ul>
+                <li><strong>Advanced Features:</strong>
+                    <ul>
+                        <li>Set up custom health alerts and notifications</li>
+                        <li>Configure sleep tracking preferences</li>
+                        <li>Enable activity recognition</li>
+                        <li>Set up workout modes</li>
+                        <li>Connect with healthcare providers</li>
+                    </ul>
+                </li>
+                <li><strong>Data Management:</strong>
+                    <ul>
+                        <li>View detailed health reports</li>
+                        <li>Export your health data</li>
+                        <li>Share data with healthcare providers</li>
+                        <li>Set up data backup</li>
+                        <li>Configure data sharing preferences</li>
+                    </ul>
+                </li>
+                <li><strong>Community and Support:</strong>
+                    <ul>
+                        <li>Join the VitalTrack Pro community</li>
+                        <li>Access video tutorials</li>
+                        <li>Connect with other users</li>
+                        <li>Get support from our team</li>
+                        <li>Participate in challenges and events</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Need More Help?</strong> Visit our <a href="../help-center.html" style="color: var(--primary-violet);">Help Center</a> for detailed guides on specific features, troubleshooting tips, and answers to common questions. Our support team is also available 24/7 to assist you. You can also check out our <a href="../video-tutorials.html" style="color: var(--primary-violet);">video tutorials</a> for visual guidance.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Troubleshooting - VitalTrack Pro</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        .guide-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .guide-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .guide-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--secondary-purple);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+        }
+
+        .guide-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .guide-section ol, .guide-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 1rem;
+        }
+
+        .note {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--primary-violet);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .note i {
+            color: var(--primary-violet);
+            margin-right: 0.5rem;
+        }
+
+        .content-switch {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary-violet);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .content-switch:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshooting-section {
+            background: var(--benefit-card);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .troubleshooting-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .troubleshooting-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .troubleshooting-card h4 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshooting-card p {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .troubleshooting-steps {
+            counter-reset: step;
+        }
+
+        .troubleshooting-steps li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .troubleshooting-steps li:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-indicator i {
+            color: var(--primary-violet);
+        }
+
+        .status-indicator.resolved i {
+            color: #4CAF50;
+        }
+
+        .status-indicator.in-progress i {
+            color: #FFC107;
+        }
+
+        .status-indicator.error i {
+            color: #F44336;
+        }
+
+        .solution-list {
+            margin-top: 1rem;
+        }
+
+        .solution-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .solution-list li:before {
+            content: "✓";
+            color: var(--primary-violet);
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .guide-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .guide-hero h1 {
+                font-size: 2rem;
+            }
+
+            .guide-content {
+                padding: 1rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem;
+            }
+
+            .content-switch {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="../features.html">Features</a>
+            <a href="../benefits.html">Benefits</a>
+            <a href="../pricing.html">Pricing</a>
+            <a href="../testimonials.html">Testimonials</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../help-center.html">Help Center</a>
+            <a href="../contact.html">Contact</a>
+            <a href="../login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="guide-hero">
+        <h1>App Troubleshooting</h1>
+        <p>Find solutions to common issues with the VitalTrack Pro app and get back to tracking your health.</p>
+    </section>
+
+    <a href="#guide-content" class="content-switch">
+        <i class="fas fa-arrow-down"></i>
+        <span>View Guide</span>
+    </a>
+
+    <div id="guide-content" class="guide-content">
+        <div class="guide-section">
+            <h2>App Troubleshooting Guide</h2>
+            <p>This guide will help you resolve common issues with the VitalTrack Pro app.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-sync"></i>
+                    <h4>Sync Issues</h4>
+                    <p>Fix data synchronization problems</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>App Crashes</h4>
+                    <p>Resolve app stability issues</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bluetooth"></i>
+                    <h4>Connection</h4>
+                    <p>Fix device connection problems</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cog"></i>
+                    <h4>Settings</h4>
+                    <p>Configure app settings</p>
+                </div>
+            </div>
+
+            <h3>Sync Issues</h3>
+            <div class="troubleshooting-section">
+                <div class="troubleshooting-card">
+                    <h4>Data Not Syncing</h4>
+                    <p>If your data isn't syncing properly:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Check internet connection</li>
+                        <li>Restart the app</li>
+                        <li>Verify device connection</li>
+                        <li>Clear app cache</li>
+                        <li>Update app to latest version</li>
+                    </ol>
+                </div>
+                <div class="troubleshooting-card">
+                    <h4>Sync Tips</h4>
+                    <p>For better syncing:</p>
+                    <ul class="solution-list">
+                        <li>Keep app running in background</li>
+                        <li>Enable auto-sync</li>
+                        <li>Check sync frequency settings</li>
+                        <li>Monitor storage space</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-lightbulb"></i>
+                <strong>Pro Tip:</strong> If sync issues persist, try logging out and back into your account, or reinstalling the app as a last resort.
+            </div>
+
+            <h3>App Crashes</h3>
+            <div class="troubleshooting-section">
+                <div class="troubleshooting-card">
+                    <h4>Frequent Crashes</h4>
+                    <p>If the app keeps crashing:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Check for app updates</li>
+                        <li>Clear app data</li>
+                        <li>Restart your device</li>
+                        <li>Check device storage</li>
+                        <li>Reinstall the app</li>
+                    </ol>
+                </div>
+                <div class="troubleshooting-card">
+                    <h4>Performance Issues</h4>
+                    <p>Improve app performance:</p>
+                    <ul class="solution-list">
+                        <li>Close background apps</li>
+                        <li>Update device OS</li>
+                        <li>Free up device storage</li>
+                        <li>Check battery optimization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Connection Problems</h3>
+            <div class="troubleshooting-section">
+                <div class="troubleshooting-card">
+                    <h4>Device Connection</h4>
+                    <p>If device won't connect:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Enable Bluetooth</li>
+                        <li>Restart both devices</li>
+                        <li>Forget and re-pair device</li>
+                        <li>Check device compatibility</li>
+                        <li>Update device firmware</li>
+                    </ol>
+                </div>
+                <div class="troubleshooting-card">
+                    <h4>Connection Tips</h4>
+                    <p>For stable connection:</p>
+                    <ul class="solution-list">
+                        <li>Keep devices close</li>
+                        <li>Reduce interference</li>
+                        <li>Check battery levels</li>
+                        <li>Update app regularly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>App Settings</h3>
+            <div class="troubleshooting-section">
+                <div class="troubleshooting-card">
+                    <h4>Configuration Issues</h4>
+                    <p>Fix settings problems:</p>
+                    <ol class="troubleshooting-steps">
+                        <li>Access app settings</li>
+                        <li>Reset to defaults</li>
+                        <li>Configure preferences</li>
+                        <li>Save changes</li>
+                        <li>Restart app</li>
+                    </ol>
+                </div>
+                <div class="troubleshooting-card">
+                    <h4>Settings Tips</h4>
+                    <p>Optimize app settings:</p>
+                    <ul class="solution-list">
+                        <li>Enable notifications</li>
+                        <li>Set data backup</li>
+                        <li>Configure privacy</li>
+                        <li>Adjust display settings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Need More Help?</strong> Visit our <a href="../help-center.html" style="color: var(--primary-violet);">Help Center</a> for additional resources, or check out our <a href="../video-tutorials.html" style="color: var(--primary-violet);">video tutorials</a> for visual guidance. Our support team is available 24/7 to assist you.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

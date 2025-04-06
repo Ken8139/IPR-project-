@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalTrack Pro - Help Center</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: var(--light-grey);
+            --text: var(--dark-grey);
+            --card-bg: white;
+            --nav-bg: var(--black);
+            --nav-text: white;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(100, 181, 246, 0.9));
+            --feature-bg: white;
+            --benefit-bg: var(--dark-grey);
+            --benefit-card: rgba(255, 255, 255, 0.1);
+            --stats-bg: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            --cta-bg: white;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        :root[data-theme="dark"] {
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --light-grey: #333333;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-purple);
+        }
+
+        .nav-button {
+            background-color: var(--primary-violet);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-purple);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--nav-text);
+            color: var(--nav-text);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-violet);
+            border-color: var(--primary-violet);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+
+        .help-hero {
+            background: var(--hero-overlay);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            border: none;
+            background: var(--card-bg);
+            color: var(--text);
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px var(--card-shadow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-violet);
+        }
+
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .quick-link {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .quick-link:hover, .quick-link.active-link {
+            background: var(--primary-violet);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .quick-link.active-link {
+            border-color: white;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .help-category {
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .help-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .help-category h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-description {
+            color: var(--text);
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        .help-category a {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .help-category a:hover {
+            background: rgba(138, 43, 226, 0.1);
+            transform: translateX(5px);
+        }
+
+        .link-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .link-title {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .link-description {
+            color: var(--text);
+            font-size: 0.85rem;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+
+        .help-category i {
+            color: var(--primary-violet);
+            margin-top: 0.25rem;
+            transition: transform 0.3s;
+        }
+
+        .help-category a:hover i {
+            transform: translateX(5px);
+        }
+
+        .help-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .faq-section {
+            background: var(--background);
+            padding: 4rem 2rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-container h2 {
+            color: var(--primary-violet);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--card-shadow);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-out;
+            color: var(--text);
+            opacity: 0.9;
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        .support-channels {
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            text-align: center;
+        }
+
+        .support-channels h2 {
+            color: var(--primary-violet);
+            margin-bottom: 2rem;
+        }
+
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .channel-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .channel-card:hover .channel-image {
+            transform: scale(1.05);
+        }
+
+        .channel-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-violet);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .channel-card:hover .channel-icon {
+            transform: scale(1.1);
+        }
+
+        .video-tutorials {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .video-tutorials h2 {
+            color: var(--primary-violet);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            padding-top: 56.25%;
+            background: var(--dark-grey);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: var(--primary-violet);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .play-button:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h4 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-info p {
+            color: var(--text);
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .community-section {
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            text-align: center;
+        }
+
+        .community-section h2 {
+            color: var(--primary-violet);
+            margin-bottom: 2rem;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .community-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .community-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .community-card h4 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .forum-post h5 {
+            color: var(--text);
+            margin: 0.5rem 0;
+        }
+
+        .forum-post p {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: var(--primary-violet);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            background-color: var(--nav-bg);
+            color: var(--nav-text);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .help-hero h1 {
+                font-size: 2rem;
+            }
+
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .quick-link {
+                width: 100%;
+                text-align: center;
+                margin: 0.5rem 0;
+            }
+
+            .help-category {
+                margin: 1rem;
+            }
+
+            .link-content {
+                gap: 0.5rem;
+            }
+
+            .category-description {
+                font-size: 0.9rem;
+            }
+
+            .channel-grid,
+            .video-grid,
+            .community-grid {
+                grid-template-columns: 1fr;
+                margin: 2rem 1rem;
+            }
+        }
+
+        .knowledge-base {
+            padding: 4rem 2rem;
+            background: var(--background);
+        }
+
+        .knowledge-base h2 {
+            text-align: center;
+            color: var(--primary-violet);
+            margin-bottom: 3rem;
+        }
+
+        .kb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .kb-category {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--card-shadow);
+        }
+
+        .kb-category h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .kb-article {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .kb-article:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .kb-article h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .kb-article p {
+            color: var(--text);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary-violet);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .read-more:hover {
+            color: var(--secondary-purple);
+            gap: 0.8rem;
+        }
+
+        .device-care {
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+        }
+
+        .device-care h2 {
+            text-align: center;
+            color: var(--primary-violet);
+            margin-bottom: 3rem;
+        }
+
+        .care-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .care-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cleaning-card {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1583947581924-a37d1c1c0c1b?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .battery-card {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1605980776566-0486c3ac7617?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .protection-card {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1583947581924-a37d1c1c0c1b?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+            transition: background-color 0.3s;
+        }
+
+        .care-card:hover .card-overlay {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .care-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .care-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-violet);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .care-card h3 {
+            color: white;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .care-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .care-card li {
+            color: white;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .care-card li:before {
+            content: "•";
+            color: var(--primary-violet);
+            position: absolute;
+            left: 0;
+        }
+
+        .care-link {
+            display: block;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem;
+            border: 2px solid white;
+            border-radius: 5px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .care-link:hover {
+            background: white;
+            color: var(--primary-violet);
+        }
+
+        .emergency-support {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            color: white;
+        }
+
+        .emergency-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .emergency-content h2 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .emergency-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .emergency-contact {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .emergency-contact:hover {
+            transform: translateY(-5px);
+        }
+
+        .emergency-contact i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .emergency-contact h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .availability {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .emergency-button {
+            background: white;
+            color: var(--primary-violet);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .emergency-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .emergency-note {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .kb-grid,
+            .care-grid,
+            .emergency-options {
+                grid-template-columns: 1fr;
+            }
+
+            .emergency-contact {
+                margin: 0 1rem;
+            }
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 15px var(--card-shadow);
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .results-container {
+            padding: 1rem;
+        }
+
+        .search-result-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-grey);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: rgba(138, 43, 226, 0.1);
+        }
+
+        .result-icon {
+            color: var(--primary-violet);
+            margin-top: 0.25rem;
+        }
+
+        .result-content {
+            flex: 1;
+        }
+
+        .result-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: var(--primary-violet);
+        }
+
+        .result-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        @keyframes highlightFade {
+            0% { background-color: rgba(138, 43, 226, 0.1); }
+            100% { background-color: transparent; }
+        }
+
+        .highlight-section {
+            animation: highlightFade 2s ease-out;
+        }
+
+        .active-link {
+            background: var(--primary-violet) !important;
+            color: white !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .help-category {
+            scroll-margin-top: 100px;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="benefits.html">Benefits</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="blog.html">Blog</a>
+            <a href="help-center.html">Help Center</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="help-hero">
+        <h1>How can we help you?</h1>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search for help articles, tutorials, and more...">
+            <div class="search-results" style="display: none;">
+                <div class="results-container"></div>
+            </div>
+        </div>
+        <div class="quick-links">
+            <a href="#getting-started" class="quick-link">Getting Started</a>
+            <a href="#device-setup" class="quick-link">Device Setup</a>
+            <a href="#health-monitoring" class="quick-link" data-section="health-monitoring">Health Monitoring</a>
+            <a href="#troubleshooting" class="quick-link" data-section="troubleshooting">Troubleshooting</a>
+            <a href="#account" class="quick-link">Account & Billing</a>
+        </div>
+    </section>
+
+    <section class="help-grid">
+        <div class="help-category" id="getting-started">
+            <h3><i class="fas fa-rocket"></i> Getting Started</h3>
+            <p class="category-description">Begin your health monitoring journey with our comprehensive setup guides.</p>
+            <ul>
+                <li>
+                    <a href="help/quick-start.html">
+                        <i class="fas fa-arrow-right"></i> 
+                        <div class="link-content">
+                            <span class="link-title">Quick Start Guide</span>
+                            <span class="link-description">Set up your device in under 5 minutes</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/first-time-setup.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">First Time Setup</span>
+                            <span class="link-description">Detailed walkthrough of initial device configuration</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/device-pairing.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Device Pairing</span>
+                            <span class="link-description">Connect your device with smartphone or tablet</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/app-installation.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">App Installation</span>
+                            <span class="link-description">Download and set up the VitalTrack Pro app</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/basic-navigation.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Basic Navigation</span>
+                            <span class="link-description">Learn to navigate device features and menus</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="help-category" id="device-setup">
+            <h3><i class="fas fa-cog"></i> Device Setup</h3>
+            <p class="category-description">Complete guide to setting up and configuring your VitalTrack Pro device for optimal performance.</p>
+            <ul>
+                <li>
+                    <a href="help/initial-setup.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Initial Device Setup</span>
+                            <span class="link-description">Step-by-step guide to power up and configure your device</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/bluetooth-pairing.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Bluetooth Pairing</span>
+                            <span class="link-description">Connect your device to your smartphone or tablet</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/wifi-setup.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Wi-Fi Configuration</span>
+                            <span class="link-description">Set up wireless connectivity for real-time data sync</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/sensor-setup.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Sensor Configuration</span>
+                            <span class="link-description">Calibrate and optimize all health monitoring sensors</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/firmware-update.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Firmware Updates</span>
+                            <span class="link-description">Keep your device up to date with latest features</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/wearing-guide.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Proper Wear Guide</span>
+                            <span class="link-description">Learn how to wear the device for accurate measurements</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/personalization.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Device Personalization</span>
+                            <span class="link-description">Customize settings for your specific needs</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="help-category" id="health-monitoring">
+            <h3><i class="fas fa-heartbeat"></i> Health Monitoring</h3>
+            <p class="category-description">Understand your health metrics and make informed decisions about your wellness journey.</p>
+            <ul>
+                <li>
+                    <a href="help/understanding-metrics.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Understanding Your Metrics</span>
+                            <span class="link-description">Learn about all health measurements and their significance</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/heart-rate-monitoring.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Heart Rate Monitoring</span>
+                            <span class="link-description">Track and analyze your heart health data</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/sleep-tracking.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Sleep Tracking</span>
+                            <span class="link-description">Monitor sleep patterns and improve sleep quality</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/activity-tracking.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Activity Tracking</span>
+                            <span class="link-description">Monitor daily movement and exercise stats</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/health-reports.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Health Reports</span>
+                            <span class="link-description">Generate and interpret detailed health summaries</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="help-category" id="troubleshooting">
+            <h3><i class="fas fa-tools"></i> Troubleshooting</h3>
+            <p class="category-description">Find solutions to common issues and optimize your device performance.</p>
+            <ul>
+                <li>
+                    <a href="help/common-issues.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Common Issues</span>
+                            <span class="link-description">Quick fixes for frequent problems</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/connectivity-problems.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Connectivity Problems</span>
+                            <span class="link-description">Resolve Bluetooth and syncing issues</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/battery-optimization.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Battery Optimization</span>
+                            <span class="link-description">Extend battery life and improve performance</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/sensor-calibration.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Sensor Calibration</span>
+                            <span class="link-description">Ensure accurate readings from all sensors</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/app-troubleshooting.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">App Troubleshooting</span>
+                            <span class="link-description">Resolve app-related issues and crashes</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="help-category" id="account">
+            <h3><i class="fas fa-user-shield"></i> Account & Privacy</h3>
+            <p class="category-description">Manage your account settings and protect your personal health data.</p>
+            <ul>
+                <li>
+                    <a href="help/account-settings.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Account Settings</span>
+                            <span class="link-description">Customize your profile and preferences</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/privacy-controls.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Privacy Controls</span>
+                            <span class="link-description">Manage data sharing and privacy settings</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/data-management.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Data Management</span>
+                            <span class="link-description">Control your health data and exports</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/security-features.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Security Features</span>
+                            <span class="link-description">Protect your account with advanced security</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="help/subscription-management.html">
+                        <i class="fas fa-arrow-right"></i>
+                        <div class="link-content">
+                            <span class="link-title">Subscription Management</span>
+                            <span class="link-description">Manage your plan and billing details</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How accurate is VitalTrack Pro's heart rate monitoring?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    VitalTrack Pro uses advanced PPG sensors and AI algorithms to achieve 99.9% accuracy in heart rate monitoring. Our technology is clinically validated and compared against medical-grade ECG devices.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    How long does the battery last?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    The VitalTrack Pro device typically lasts up to 7 days on a single charge with normal usage. Battery life may vary based on feature usage and settings.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Is my health data secure?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes, we take data security seriously. All health data is encrypted using military-grade encryption and stored in HIPAA-compliant servers. You have full control over your data sharing preferences.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I share my health data with my doctor?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Yes, VitalTrack Pro allows you to generate detailed health reports that you can share with your healthcare providers. You can also grant direct access to your data through our healthcare provider portal.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="support-channels">
+        <h2>Get Support</h2>
+        <div class="channel-grid">
+            <div class="channel-card">
+                <img src="https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?ixlib=rb-4.0.3" alt="Live Chat Support" class="channel-image">
+                <div class="channel-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Live Chat</h3>
+                <p>Chat with our support team 24/7</p>
+                <button class="cta-button">Start Chat</button>
+            </div>
+            <div class="channel-card">
+                <img src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?ixlib=rb-4.0.3" alt="Email Support" class="channel-image">
+                <div class="channel-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Email Support</h3>
+                <p>Get detailed assistance via email</p>
+                <button class="cta-button">Send Email</button>
+            </div>
+            <div class="channel-card">
+                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3" alt="Phone Support" class="channel-image">
+                <div class="channel-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h3>Phone Support</h3>
+                <p>Talk to our experts directly</p>
+                <button class="cta-button">Call Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-tutorials">
+        <h2>Video Tutorials</h2>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h4>Getting Started with VitalTrack Pro</h4>
+                    <p>Learn how to set up your device and start monitoring your health</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h4>Advanced Features Guide</h4>
+                    <p>Discover all the powerful features of your VitalTrack Pro</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h4>Troubleshooting Common Issues</h4>
+                    <p>Quick solutions to common problems you might encounter</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="community-section">
+        <h2>Community Forum</h2>
+        <div class="community-grid">
+            <div class="community-card">
+                <h4><i class="fas fa-users"></i> Latest Discussions</h4>
+                <div class="forum-post">
+                    <span class="tag">Tips</span>
+                    <span class="tag">Battery Life</span>
+                    <h5>How to maximize battery life</h5>
+                    <p>Posted 2 hours ago • 15 replies</p>
+                </div>
+            </div>
+            <div class="community-card">
+                <h4><i class="fas fa-star"></i> Featured Guides</h4>
+                <div class="forum-post">
+                    <span class="tag">Guide</span>
+                    <span class="tag">Health</span>
+                    <h5>Complete sleep tracking guide</h5>
+                    <p>Posted 1 day ago • 42 replies</p>
+                </div>
+            </div>
+            <div class="community-card">
+                <h4><i class="fas fa-lightbulb"></i> Tips & Tricks</h4>
+                <div class="forum-post">
+                    <span class="tag">Tips</span>
+                    <span class="tag">Features</span>
+                    <h5>Hidden features you might not know</h5>
+                    <p>Posted 3 days ago • 89 replies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="knowledge-base">
+        <h2>Knowledge Base</h2>
+        <div class="kb-grid">
+            <div class="kb-category">
+                <h3><i class="fas fa-book-medical"></i> Health Guides</h3>
+                <div class="kb-articles">
+                    <article class="kb-article">
+                        <h4>Understanding Your Heart Rate Zones</h4>
+                        <p>Learn how to interpret different heart rate zones and optimize your workouts.</p>
+                        <a href="guides/heart-rate-zones.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </article>
+                    <article class="kb-article">
+                        <h4>Sleep Quality Analysis</h4>
+                        <p>Detailed guide on understanding your sleep patterns and improving sleep quality.</p>
+                        <a href="guides/sleep-analysis.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </article>
+                </div>
+            </div>
+            <div class="kb-category">
+                <h3><i class="fas fa-cogs"></i> Technical Guides</h3>
+                <div class="kb-articles">
+                    <article class="kb-article">
+                        <h4>Advanced Device Settings</h4>
+                        <p>Customize your VitalTrack Pro settings for optimal performance.</p>
+                        <a href="guides/advanced-settings.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </article>
+                    <article class="kb-article">
+                        <h4>Data Sync Options</h4>
+                        <p>Learn about different sync methods and troubleshooting sync issues.</p>
+                        <a href="guides/sync-options.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="device-care">
+        <h2>Device Care & Maintenance</h2>
+        <div class="care-grid">
+            <div class="care-card cleaning-card">
+                <div class="card-overlay"></div>
+                <div class="care-icon">
+                    <i class="fas fa-hand-sparkles"></i>
+                </div>
+                <h3>Cleaning & Hygiene</h3>
+                <ul>
+                    <li>Daily cleaning recommendations</li>
+                    <li>Approved cleaning materials</li>
+                    <li>Sanitization best practices</li>
+                    <li>Band maintenance tips</li>
+                </ul>
+                <a href="care/cleaning-guide.html" class="care-link">View Guide</a>
+            </div>
+            <div class="care-card battery-card">
+                <div class="card-overlay"></div>
+                <div class="care-icon">
+                    <i class="fas fa-battery-full"></i>
+                </div>
+                <h3>Battery Care</h3>
+                <ul>
+                    <li>Charging best practices</li>
+                    <li>Battery life optimization</li>
+                    <li>Storage recommendations</li>
+                    <li>Battery health monitoring</li>
+                </ul>
+                <a href="care/battery-guide.html" class="care-link">View Guide</a>
+            </div>
+            <div class="care-card protection-card">
+                <div class="card-overlay"></div>
+                <div class="care-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Protection</h3>
+                <ul>
+                    <li>Water resistance guidelines</li>
+                    <li>Impact protection</li>
+                    <li>Temperature considerations</li>
+                    <li>Storage recommendations</li>
+                </ul>
+                <a href="care/protection-guide.html" class="care-link">View Guide</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="emergency-support">
+        <div class="emergency-content">
+            <h2><i class="fas fa-exclamation-circle"></i> Emergency Assistance</h2>
+            <p>Need immediate help? Our emergency support team is available 24/7.</p>
+            <div class="emergency-options">
+                <div class="emergency-contact">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Emergency Hotline</h3>
+                    <p>1-800-VITAL-HELP</p>
+                    <span class="availability">Available 24/7</span>
+                </div>
+                <div class="emergency-contact">
+                    <i class="fas fa-comment-medical"></i>
+                    <h3>Urgent Chat</h3>
+                    <p>Connect with an agent immediately</p>
+                    <button class="emergency-button">Start Emergency Chat</button>
+                </div>
+            </div>
+            <div class="emergency-note">
+                <p><strong>Note:</strong> For medical emergencies, please dial 911 or your local emergency services number.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 VitalTrack Pro. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                answer.classList.toggle('active');
+                icon.classList.toggle('fa-chevron-up');
+                icon.classList.toggle('fa-chevron-down');
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchResults = document.querySelector('.search-results');
+        const resultsContainer = document.querySelector('.results-container');
+        const helpCategories = document.querySelectorAll('.help-category');
+        
+        // Create a data structure to store all searchable content
+        const searchableContent = [];
+        
+        // Collect all help articles
+        helpCategories.forEach(category => {
+            const categoryTitle = category.querySelector('h3').textContent;
+            const categoryIcon = category.querySelector('h3 i').className;
+            
+            category.querySelectorAll('a').forEach(link => {
+                const title = link.querySelector('.link-title').textContent;
+                const description = link.querySelector('.link-description').textContent;
+                const url = link.getAttribute('href');
+                
+                searchableContent.push({
+                    category: categoryTitle,
+                    categoryIcon: categoryIcon,
+                    title: title,
+                    description: description,
+                    url: url
+                });
+            });
+        });
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            // Filter content based on search term
+            const matches = searchableContent.filter(item => 
+                item.title.toLowerCase().includes(searchTerm) ||
+                item.description.toLowerCase().includes(searchTerm) ||
+                item.category.toLowerCase().includes(searchTerm)
+            );
+            
+            // Display results
+            if (matches.length > 0) {
+                const resultsHTML = matches.map(item => `
+                    <a href="${item.url}" class="search-result-item">
+                        <i class="result-icon ${item.categoryIcon}"></i>
+                        <div class="result-content">
+                            <div class="result-title">${item.title}</div>
+                            <div class="result-description">${item.description}</div>
+                        </div>
+                    </a>
+                `).join('');
+                
+                resultsContainer.innerHTML = resultsHTML;
+            } else {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p>No results found for "${searchTerm}"</p>
+                    </div>
+                `;
+            }
+            
+            searchResults.style.display = 'block';
+        });
+        
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+        
+        // Prevent search results from closing when clicking inside
+        searchResults.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        // Clear search when input is cleared
+        searchInput.addEventListener('search', () => {
+            if (searchInput.value === '') {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Enhanced Quick Links Navigation
+        document.querySelectorAll('.quick-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    // Remove active class from all links
+                    document.querySelectorAll('.quick-link').forEach(ql => {
+                        ql.classList.remove('active-link');
+                    });
+                    
+                    // Add active class to clicked link
+                    link.classList.add('active-link');
+                    
+                    // Calculate scroll position with navbar offset
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+                    
+                    // Smooth scroll to target with improved animation
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Add highlight effect to target section
+                    targetElement.classList.add('highlight-section');
+                    setTimeout(() => {
+                        targetElement.classList.remove('highlight-section');
+                    }, 2000);
+                }
+            });
+        });
+
+        // Improved scroll spy for active link updates
+        function updateActiveLinks() {
+            const scrollPosition = window.scrollY + window.innerHeight / 3;
+            let activeSection = null;
+            
+            document.querySelectorAll('.help-category').forEach(section => {
+                const sectionTop = section.offsetTop - document.querySelector('.navbar').offsetHeight - 50;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                    activeSection = section.id;
+                }
+            });
+            
+            document.querySelectorAll('.quick-link').forEach(link => {
+                const href = link.getAttribute('href').substring(1);
+                if (href === activeSection) {
+                    link.classList.add('active-link');
+                } else {
+                    link.classList.remove('active-link');
+                }
+            });
+        }
+
+        // Throttle scroll event for better performance
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (!scrollTimeout) {
+                scrollTimeout = setTimeout(() => {
+                    updateActiveLinks();
+                    scrollTimeout = null;
+                }, 100);
+            }
+        });
+
+        // Initial check for active link
+        window.addEventListener('load', updateActiveLinks);
+
+        // Add hover effect for help category links
+        document.querySelectorAll('.help-category a').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.querySelector('i').classList.add('fa-bounce');
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                link.querySelector('i').classList.remove('fa-bounce');
+            });
+        });
+    </script>
+</body>
+</html> 

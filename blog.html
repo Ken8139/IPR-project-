@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - VitalTrack Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: var(--light-grey);
+            --text: var(--dark-grey);
+            --card-bg: white;
+            --nav-bg: var(--black);
+            --nav-text: white;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(100, 181, 246, 0.9));
+            --feature-bg: white;
+            --benefit-bg: var(--dark-grey);
+            --benefit-card: rgba(255, 255, 255, 0.1);
+            --stats-bg: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            --cta-bg: white;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        :root[data-theme="dark"] {
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --light-grey: #333333;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-purple);
+        }
+
+        .nav-button {
+            background-color: var(--primary-violet);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-purple);
+        }
+
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            padding: 8rem 2rem 4rem;
+            color: white;
+            text-align: center;
+        }
+
+        .blog-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary-violet);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--primary-violet);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary-violet);
+            color: white;
+        }
+
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+        }
+
+        .featured-post {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .featured-post img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 2rem;
+        }
+
+        .featured-content h2 {
+            color: var(--primary-violet);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--dark-grey);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-content h3 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .popular-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .popular-post {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .popular-post img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .popular-post-content h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: var(--light-grey);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: var(--primary-violet);
+            color: white;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            padding: 0.75rem;
+            border: 1px solid var(--light-grey);
+            border-radius: 5px;
+        }
+
+        .newsletter-form button {
+            background: var(--primary-violet);
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--secondary-purple);
+        }
+
+        footer {
+            background-color: var(--black);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-post img {
+                height: 300px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .blog-card, .featured-post {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .search-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 0.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .search-results.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .search-result-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-grey);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-result-item:hover {
+            background-color: var(--light-grey);
+        }
+
+        .search-result-item h4 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .search-result-item p {
+            font-size: 0.9rem;
+            color: var(--dark-grey);
+            margin-bottom: 0.5rem;
+        }
+
+        .search-result-meta {
+            font-size: 0.8rem;
+            color: var(--dark-grey);
+            opacity: 0.8;
+        }
+
+        .no-results {
+            padding: 1rem;
+            text-align: center;
+            color: var(--dark-grey);
+        }
+
+        .highlight {
+            background-color: rgba(138, 43, 226, 0.2);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .search-btn {
+            background: var(--black);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-btn:hover {
+            background: var(--dark-grey);
+        }
+
+        .post-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .social-share {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .share-btn {
+            background: var(--light-grey);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .share-btn:hover {
+            background: var(--primary-violet);
+            color: white;
+        }
+
+        .featured-authors {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .featured-authors h2 {
+            text-align: center;
+            color: var(--primary-violet);
+            margin-bottom: 3rem;
+        }
+
+        .authors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .author-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light-grey);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .author-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .author-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .author-card h3 {
+            color: var(--primary-violet);
+            margin-bottom: 0.5rem;
+        }
+
+        .author-card p {
+            color: var(--dark-grey);
+            margin-bottom: 1rem;
+        }
+
+        .author-link {
+            color: var(--primary-violet);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .author-link:hover {
+            color: var(--secondary-purple);
+        }
+
+        .topics-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .topic-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background: var(--light-grey);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .topic-item:hover {
+            background: var(--primary-violet);
+            color: white;
+        }
+
+        .topic-count {
+            background: var(--primary-violet);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .reading-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+
+            .post-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+
+        .sidebar-search {
+            position: relative;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .sidebar-search input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--light-grey);
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-search button {
+            background: var(--primary-violet);
+            color: white;
+            border: none;
+            padding: 0 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-search button:hover {
+            background: var(--secondary-purple);
+        }
+
+        .sidebar-search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .sidebar-search-results.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--nav-text);
+            color: var(--nav-text);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-violet);
+            border-color: var(--primary-violet);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+
+        .search-results, .sidebar-search-results {
+            background: var(--card-bg);
+            border: 1px solid var(--light-grey);
+        }
+
+        .search-result-item:hover {
+            background-color: var(--light-grey);
+        }
+
+        .popular-post {
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .tag {
+            background: var(--light-grey);
+            color: var(--text);
+        }
+
+        .topic-item {
+            background: var(--light-grey);
+            color: var(--text);
+        }
+
+        /* Logo styles */
+        .navbar .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--primary-violet);
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Footer styles */
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-purple);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p {
+            color: white;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--secondary-purple);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-purple);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="benefits.html">Benefits</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="blog.html">Blog</a>
+            <a href="help-center.html">Help Center</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="blog-hero">
+        <h1>Health & Wellness Insights</h1>
+        <p>Stay informed with the latest health monitoring trends, success stories, and expert advice.</p>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search articles...">
+            <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+            <div class="search-results" id="searchResults">
+                <!-- Search results will be populated here -->
+            </div>
+        </div>
+    </section>
+
+    <div class="blog-categories">
+        <button class="category-btn active" data-category="all">All Posts</button>
+        <button class="category-btn" data-category="health-tips">Health Tips</button>
+        <button class="category-btn" data-category="product-updates">Product Updates</button>
+        <button class="category-btn" data-category="success-stories">Success Stories</button>
+        <button class="category-btn" data-category="expert-advice">Expert Advice</button>
+        <button class="category-btn" data-category="research">Research & Studies</button>
+        <button class="category-btn" data-category="lifestyle">Lifestyle</button>
+    </div>
+
+    <div class="blog-container">
+        <main>
+            <article class="featured-post" data-category="expert-advice">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef" alt="AI in Healthcare">
+                <div class="featured-content">
+                    <h2>The Future of Health Monitoring: AI and Wearable Technology</h2>
+                    <div class="post-meta">
+                        <span>March 25, 2024</span>
+                        <span>By Dr. Sarah Johnson</span>
+                        <span>5 min read</span>
+                    </div>
+                    <p>Discover how artificial intelligence is revolutionizing personal health monitoring and how VitalTrack Pro is leading the charge in this technological transformation...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+
+            <div class="blog-grid">
+                <article class="blog-card" data-category="health-tips">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" alt="Sleep Tracking">
+                    <div class="blog-content">
+                        <h3>Optimize Your Sleep with Advanced Sleep Tracking</h3>
+                        <div class="post-meta">
+                            <span>March 23, 2024</span>
+                            <span>4 min read</span>
+                        </div>
+                        <p>Learn how to improve your sleep quality using VitalTrack Pro's advanced sleep monitoring features...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="health-tips">
+                    <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd" alt="Stress Management">
+                    <div class="blog-content">
+                        <h3>Stress Management in the Digital Age</h3>
+                        <div class="post-meta">
+                            <span>March 20, 2024</span>
+                            <span>6 min read</span>
+                        </div>
+                        <p>Explore effective strategies for managing stress using real-time biometric data...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="expert-advice">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d" alt="Heart Health">
+                    <div class="blog-content">
+                        <h3>Understanding Your Heart Health Metrics</h3>
+                        <div class="post-meta">
+                            <span>March 18, 2024</span>
+                            <span>5 min read</span>
+                        </div>
+                        <p>A comprehensive guide to interpreting your heart health data and taking proactive steps...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="product-updates">
+                    <img src="https://images.unsplash.com/photo-1581093458791-9f3c3250a8b7" alt="Emergency Response">
+                    <div class="blog-content">
+                        <h3>New Feature: Enhanced Emergency Response System</h3>
+                        <div class="post-meta">
+                            <span>March 15, 2024</span>
+                            <span>3 min read</span>
+                        </div>
+                        <p>Introducing our improved emergency response system with faster alert times and better accuracy...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="success-stories">
+                    <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5" alt="Success Story">
+                    <div class="blog-content">
+                        <h3>From Crisis to Prevention: John's Story</h3>
+                        <div class="post-meta">
+                            <span>March 12, 2024</span>
+                            <span>7 min read</span>
+                        </div>
+                        <p>How VitalTrack Pro's early warning system helped prevent a major health crisis...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="product-updates">
+                    <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661" alt="App Update">
+                    <div class="blog-content">
+                        <h3>VitalTrack Pro 2.0: What's New</h3>
+                        <div class="post-meta">
+                            <span>March 8, 2024</span>
+                            <span>4 min read</span>
+                        </div>
+                        <p>Explore the latest features and improvements in our biggest update yet...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="success-stories">
+                    <img src="https://images.unsplash.com/photo-1579126038374-6064e9370f0f" alt="Athlete Success">
+                    <div class="blog-content">
+                        <h3>Professional Athlete's Performance Breakthrough</h3>
+                        <div class="post-meta">
+                            <span>March 5, 2024</span>
+                            <span>6 min read</span>
+                        </div>
+                        <p>How Sarah Williams optimized her training using VitalTrack Pro's analytics...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="expert-advice">
+                    <img src="https://images.unsplash.com/photo-1584982751601-97dcc096659c" alt="Medical Expert">
+                    <div class="blog-content">
+                        <h3>Expert Guide: Preventive Healthcare with Wearables</h3>
+                        <div class="post-meta">
+                            <span>March 2, 2024</span>
+                            <span>8 min read</span>
+                        </div>
+                        <p>Leading cardiologists share insights on using wearable technology for prevention...</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="research">
+                    <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7" alt="Health Research">
+                    <div class="blog-content">
+                        <h3>Latest Research: Impact of Continuous Health Monitoring</h3>
+                        <div class="post-meta">
+                            <span>March 1, 2024</span>
+                            <span>10 min read</span>
+                            <div class="post-tags">
+                                <span class="tag">Research</span>
+                                <span class="tag">Healthcare</span>
+                            </div>
+                        </div>
+                        <p>New research findings on how continuous health monitoring improves patient outcomes...</p>
+                        <div class="post-footer">
+                            <a href="#" class="read-more">Read More →</a>
+                            <div class="social-share">
+                                <button class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i></button>
+                                <button class="share-btn" data-platform="facebook"><i class="fab fa-facebook"></i></button>
+                                <button class="share-btn" data-platform="linkedin"><i class="fab fa-linkedin"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="lifestyle">
+                    <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597" alt="Healthy Lifestyle">
+                    <div class="blog-content">
+                        <h3>Integrating VitalTrack Pro into Your Daily Wellness Routine</h3>
+                        <div class="post-meta">
+                            <span>February 28, 2024</span>
+                            <span>7 min read</span>
+                            <div class="post-tags">
+                                <span class="tag">Lifestyle</span>
+                                <span class="tag">Wellness</span>
+                            </div>
+                        </div>
+                        <p>Practical tips for making the most of your health monitoring device in daily life...</p>
+                        <div class="post-footer">
+                            <a href="#" class="read-more">Read More →</a>
+                            <div class="social-share">
+                                <button class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i></button>
+                                <button class="share-btn" data-platform="facebook"><i class="fab fa-facebook"></i></button>
+                                <button class="share-btn" data-platform="linkedin"><i class="fab fa-linkedin"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <aside class="blog-sidebar">
+            <div class="sidebar-section">
+                <h3>Search</h3>
+                <div class="sidebar-search">
+                    <input type="text" id="sidebarSearchInput" placeholder="Search articles...">
+                    <button id="sidebarSearchBtn"><i class="fas fa-search"></i></button>
+                    <div class="sidebar-search-results" id="sidebarSearchResults">
+                        <!-- Sidebar search results will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Popular Posts</h3>
+                <div class="popular-posts">
+                    <div class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" alt="Fitness Tracking">
+                        <div class="popular-post-content">
+                            <h4>10 Tips for Better Fitness Tracking</h4>
+                            <span>March 10, 2024</span>
+                        </div>
+                    </div>
+                    <div class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef" alt="Health Monitoring">
+                        <div class="popular-post-content">
+                            <h4>The Complete Guide to Health Monitoring</h4>
+                            <span>March 5, 2024</span>
+                        </div>
+                    </div>
+                    <div class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd" alt="Wellness Tips">
+                        <div class="popular-post-content">
+                            <h4>Daily Wellness Habits to Adopt</h4>
+                            <span>March 1, 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Categories</h3>
+                <div class="tag-cloud">
+                    <a href="#" class="tag">Health Tips</a>
+                    <a href="#" class="tag">Product Updates</a>
+                    <a href="#" class="tag">Success Stories</a>
+                    <a href="#" class="tag">Expert Advice</a>
+                    <a href="#" class="tag">Fitness</a>
+                    <a href="#" class="tag">Wellness</a>
+                    <a href="#" class="tag">Technology</a>
+                    <a href="#" class="tag">Research</a>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Reading List</h3>
+                <div class="reading-list" id="readingList">
+                    <!-- Reading list items will be added here via JavaScript -->
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Topics</h3>
+                <div class="topics-list">
+                    <div class="topic-item">
+                        <span>Health Monitoring</span>
+                        <span class="topic-count">15</span>
+                    </div>
+                    <div class="topic-item">
+                        <span>Fitness Tracking</span>
+                        <span class="topic-count">12</span>
+                    </div>
+                    <div class="topic-item">
+                        <span>Mental Health</span>
+                        <span class="topic-count">8</span>
+                    </div>
+                    <div class="topic-item">
+                        <span>Sleep Science</span>
+                        <span class="topic-count">10</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <section class="featured-authors">
+        <h2>Featured Authors</h2>
+        <div class="authors-grid">
+            <div class="author-card">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2" alt="Dr. Sarah Johnson">
+                <h3>Dr. Sarah Johnson</h3>
+                <p>Cardiologist & Health Tech Expert</p>
+                <a href="#" class="author-link">View Profile</a>
+            </div>
+            <div class="author-card">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d" alt="Dr. Michael Chen">
+                <h3>Dr. Michael Chen</h3>
+                <p>AI Healthcare Researcher</p>
+                <a href="#" class="author-link">View Profile</a>
+            </div>
+            <div class="author-card">
+                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f" alt="Emma Davis">
+                <h3>Emma Davis</h3>
+                <p>Health & Wellness Coach</p>
+                <a href="#" class="author-link">View Profile</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>About VitalTrack Pro</h3>
+                    <p>Leading the future of personal health monitoring with AI-powered wearable technology.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 VitalTrack Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function generateSlug(title) {
+            return title.toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '');
+        }
+
+        function redirectToArticle(title, category) {
+            const slug = generateSlug(title);
+            const articleUrl = `articles/${category}/${slug}.html`;
+            window.location.href = articleUrl;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const blogPosts = document.querySelectorAll('.blog-card, .featured-post');
+            
+            // Function to show/hide posts based on category
+            function filterPosts(category) {
+                blogPosts.forEach(post => {
+                    if (category === 'all' || post.dataset.category === category) {
+                        post.style.display = 'block';
+                        post.style.animation = 'fadeIn 0.5s ease-in';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+            }
+
+            // Check URL parameters for category
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+            if (categoryParam) {
+                const targetButton = document.querySelector(`[data-category="${categoryParam}"]`);
+                if (targetButton) {
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    targetButton.classList.add('active');
+                    filterPosts(categoryParam);
+                }
+            }
+
+            // Add click event listeners to category buttons
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // Update URL with category parameter
+                    const newUrl = new URL(window.location.href);
+                    if (category === 'all') {
+                        newUrl.searchParams.delete('category');
+                    } else {
+                        newUrl.searchParams.set('category', category);
+                    }
+                    window.history.pushState({}, '', newUrl);
+
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Filter posts
+                    filterPosts(category);
+                });
+            });
+        });
+
+        // Enhanced search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const blogPosts = document.querySelectorAll('.blog-card, .featured-post');
+
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function updateSearchResults(searchTerm) {
+            searchResults.innerHTML = '';
+            if (!searchTerm) {
+                searchResults.classList.remove('active');
+                return;
+            }
+
+            let results = [];
+            searchTerm = searchTerm.toLowerCase();
+
+            blogPosts.forEach(post => {
+                const title = post.querySelector('h2, h3').textContent;
+                const content = post.querySelector('p').textContent;
+                const category = post.dataset.category;
+                const date = post.querySelector('.post-meta span').textContent;
+
+                if (title.toLowerCase().includes(searchTerm) || 
+                    content.toLowerCase().includes(searchTerm)) {
+                    results.push({
+                        title,
+                        content,
+                        category,
+                        date,
+                        element: post
+                    });
+                }
+            });
+
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `
+                        <h4>${highlightText(result.title, searchTerm)}</h4>
+                        <p>${highlightText(result.content.substring(0, 100), searchTerm)}...</p>
+                        <div class="search-result-meta">
+                            <span>${result.date}</span> • 
+                            <span>${result.category}</span>
+                        </div>
+                    `;
+
+                    resultItem.addEventListener('click', () => {
+                        redirectToArticle(result.title, result.category);
+                    });
+
+                    searchResults.appendChild(resultItem);
+                });
+            } else {
+                searchResults.innerHTML = `
+                    <div class="no-results">
+                        <p>No results found for "${searchTerm}"</p>
+                    </div>
+                `;
+            }
+
+            searchResults.classList.add('active');
+        }
+
+        searchInput.addEventListener('input', function() {
+            updateSearchResults(this.value.trim());
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchResults.contains(e.target) && e.target !== searchInput) {
+                searchResults.classList.remove('active');
+            }
+        });
+
+        // Handle keyboard navigation in search results
+        searchInput.addEventListener('keydown', function(e) {
+            const items = searchResults.querySelectorAll('.search-result-item');
+            const activeItem = searchResults.querySelector('.search-result-item:hover');
+            let index = -1;
+
+            if (items.length === 0) return;
+
+            if (activeItem) {
+                index = Array.from(items).indexOf(activeItem);
+            }
+
+            switch(e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (index < items.length - 1) {
+                        items[index + 1].focus();
+                    }
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (index > 0) {
+                        items[index - 1].focus();
+                    }
+                    break;
+                case 'Enter':
+                    if (activeItem) {
+                        activeItem.click();
+                    }
+                    break;
+            }
+        });
+
+        // Social sharing functionality
+        document.querySelectorAll('.share-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const platform = this.dataset.platform;
+                const postTitle = this.closest('.blog-card').querySelector('h3').textContent;
+                const url = window.location.href;
+                
+                let shareUrl = '';
+                switch(platform) {
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle)}&url=${encodeURIComponent(url)}`;
+                        break;
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                        break;
+                    case 'linkedin':
+                        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(postTitle)}`;
+                        break;
+                }
+                
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            });
+        });
+
+        // Reading list functionality
+        const readingList = document.getElementById('readingList');
+        const readMoreLinks = document.querySelectorAll('.read-more');
+
+        readMoreLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const article = this.closest('.blog-card, .featured-post');
+                const title = article.querySelector('h2, h3').textContent;
+                const category = article.dataset.category;
+                redirectToArticle(title, category);
+            });
+        });
+
+        // Sidebar search functionality
+        const sidebarSearchInput = document.getElementById('sidebarSearchInput');
+        const sidebarSearchBtn = document.getElementById('sidebarSearchBtn');
+        const sidebarSearchResults = document.getElementById('sidebarSearchResults');
+
+        function updateSidebarSearchResults(searchTerm) {
+            sidebarSearchResults.innerHTML = '';
+            if (!searchTerm) {
+                sidebarSearchResults.classList.remove('active');
+                return;
+            }
+
+            let results = [];
+            searchTerm = searchTerm.toLowerCase();
+
+            blogPosts.forEach(post => {
+                const title = post.querySelector('h2, h3').textContent;
+                const content = post.querySelector('p').textContent;
+                const date = post.querySelector('.post-meta span').textContent;
+
+                if (title.toLowerCase().includes(searchTerm) || 
+                    content.toLowerCase().includes(searchTerm)) {
+                    results.push({
+                        title,
+                        content,
+                        date,
+                        element: post
+                    });
+                }
+            });
+
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `
+                        <h4>${highlightText(result.title, searchTerm)}</h4>
+                        <p>${highlightText(result.content.substring(0, 60), searchTerm)}...</p>
+                        <div class="search-result-meta">
+                            <span>${result.date}</span>
+                        </div>
+                    `;
+
+                    resultItem.addEventListener('click', () => {
+                        redirectToArticle(result.title, result.element.dataset.category);
+                    });
+
+                    sidebarSearchResults.appendChild(resultItem);
+                });
+            } else {
+                sidebarSearchResults.innerHTML = `
+                    <div class="no-results">
+                        <p>No results found for "${searchTerm}"</p>
+                    </div>
+                `;
+            }
+
+            sidebarSearchResults.classList.add('active');
+        }
+
+        sidebarSearchInput.addEventListener('input', function() {
+            updateSidebarSearchResults(this.value.trim());
+        });
+
+        sidebarSearchBtn.addEventListener('click', function() {
+            updateSidebarSearchResults(sidebarSearchInput.value.trim());
+        });
+
+        // Close sidebar search results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!sidebarSearchResults.contains(e.target) && 
+                e.target !== sidebarSearchInput && 
+                e.target !== sidebarSearchBtn) {
+                sidebarSearchResults.classList.remove('active');
+            }
+        });
+
+        // Handle keyboard navigation in sidebar search results
+        sidebarSearchInput.addEventListener('keydown', function(e) {
+            const items = sidebarSearchResults.querySelectorAll('.search-result-item');
+            const activeItem = sidebarSearchResults.querySelector('.search-result-item:hover');
+            let index = -1;
+
+            if (items.length === 0) return;
+
+            if (activeItem) {
+                index = Array.from(items).indexOf(activeItem);
+            }
+
+            switch(e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (index < items.length - 1) {
+                        items[index + 1].focus();
+                    }
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (index > 0) {
+                        items[index - 1].focus();
+                    }
+                    break;
+                case 'Enter':
+                    if (activeItem) {
+                        activeItem.click();
+                    } else if (items.length > 0) {
+                        items[0].click();
+                    }
+                    break;
+            }
+        });
+
+        // Update popular posts click handlers
+        document.querySelectorAll('.popular-post').forEach(post => {
+            post.addEventListener('click', function() {
+                const title = this.querySelector('h4').textContent;
+                const category = 'popular'; // You can set a default category or get it from data attribute
+                redirectToArticle(title, category);
+            });
+        });
+
+        // Update tag click handlers
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.textContent.toLowerCase().replace(/\s+/g, '-');
+                window.location.href = `category/${category}.html`;
+            });
+        });
+
+        // Update topic click handlers
+        document.querySelectorAll('.topic-item').forEach(topic => {
+            topic.addEventListener('click', function() {
+                const topicName = this.querySelector('span').textContent;
+                const category = topicName.toLowerCase().replace(/\s+/g, '-');
+                window.location.href = `topics/${category}.html`;
+            });
+        });
+
+        // Update author link handlers
+        document.querySelectorAll('.author-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const authorName = this.closest('.author-card').querySelector('h3').textContent;
+                const authorSlug = generateSlug(authorName);
+                window.location.href = `authors/${authorSlug}.html`;
+            });
+        });
+    </script>
+</body>
+</html> 

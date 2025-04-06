@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - VitalTrack Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Add Tawk.to Live Chat -->
+    <script type="text/javascript">
+        // Tawk.to configuration
+        var Tawk_API = Tawk_API || {};
+        var Tawk_LoadStart = new Date();
+
+        // Customize Tawk.to before loading
+        Tawk_API.visitor = {
+            name: localStorage.getItem('visitorName') || '',
+            email: localStorage.getItem('visitorEmail') || '',
+            hash: localStorage.getItem('visitorHash') || ''
+        };
+
+        // Chat widget customization
+        Tawk_API.customStyle = {
+            zIndex: 1000,
+            minimizedOnMobile: true,
+            hideWidget: false,
+            widget: {
+                border: '1px solid #8A2BE2',
+                background: '#FFFFFF'
+            },
+            bubble: {
+                background: '#8A2BE2',
+                text: '#FFFFFF'
+            },
+            chatBubble: {
+                background: '#8A2BE2',
+                text: '#FFFFFF'
+            }
+        };
+
+        // Event handlers
+        Tawk_API.onLoad = function() {
+            // Configure chat widget appearance
+            Tawk_API.setAttributes({
+                'name': localStorage.getItem('visitorName') || '',
+                'email': localStorage.getItem('visitorEmail') || '',
+                'userType': localStorage.getItem('userType') || 'visitor'
+            }, function(error) {
+                if (error) {
+                    console.error('Error setting chat attributes:', error);
+                }
+            });
+
+            // Hide chat notification when chat is loaded
+            document.getElementById('chatNotification').style.display = 'none';
+            
+            // Set chat status
+            updateChatStatus();
+        };
+
+        Tawk_API.onChatMaximized = function() {
+            // Hide notification when chat is opened
+            document.getElementById('chatNotification').style.display = 'none';
+            localStorage.setItem('chatMaximized', 'true');
+            
+            // Track chat opening in analytics
+            trackChatEvent('opened');
+            
+            // Reset unread messages
+            unreadMessages = 0;
+            updateChatNotification();
+        };
+
+        Tawk_API.onChatMinimized = function() {
+            localStorage.setItem('chatMaximized', 'false');
+            // Track chat minimizing in analytics
+            trackChatEvent('minimized');
+        };
+
+        Tawk_API.onChatHidden = function() {
+            localStorage.setItem('chatHidden', 'true');
+            // Track chat hiding in analytics
+            trackChatEvent('hidden');
+        };
+
+        Tawk_API.onChatStarted = function() {
+            // Track chat session start
+            trackChatEvent('started');
+            localStorage.setItem('chatSessionActive', 'true');
+        };
+
+        Tawk_API.onChatEnded = function() {
+            // Track chat session end
+            trackChatEvent('ended');
+            localStorage.setItem('chatSessionActive', 'false');
+            
+            // Show feedback prompt
+            showFeedbackPrompt();
+        };
+
+        Tawk_API.onMessageSubmit = function(message) {
+            // Track message submission
+            trackChatEvent('message_sent', { message: message });
+        };
+
+        Tawk_API.onPrechatSubmit = function(data) {
+            // Save prechat form data
+            localStorage.setItem('visitorName', data.name);
+            localStorage.setItem('visitorEmail', data.email);
+            trackChatEvent('prechat_submitted', data);
+        };
+
+        Tawk_API.onOfflineSubmit = function(data) {
+            // Handle offline message submission
+            trackChatEvent('offline_message_sent', data);
+            showOfflineNotification();
+        };
+
+        // Load Tawk.to widget with proper error handling
+        (function(){
+            try {
+                var s1 = document.createElement("script"),
+                    s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/YOUR_TAWK_TO_ID/default';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin','*');
+                s1.onload = function() {
+                    console.log('Chat widget loaded successfully');
+                    initializeChat();
+                };
+                s1.onerror = function() {
+                    console.error('Failed to load chat widget');
+                    handleChatLoadError();
+                };
+                s0.parentNode.insertBefore(s1,s0);
+            } catch (error) {
+                console.error('Error initializing chat widget:', error);
+                handleChatLoadError();
+            }
+        })();
+
+        // Chat utility functions
+        function initializeChat() {
+            if (typeof Tawk_API === 'undefined') {
+                console.error('Tawk API not loaded');
+                return;
+            }
+
+            // Restore chat state
+            if (localStorage.getItem('chatMaximized') === 'true') {
+                Tawk_API.maximize();
+            }
+
+            // Set up chat notification system
+            setupChatNotifications();
+        }
+
+        function updateChatStatus() {
+            const chatWidget = document.getElementById('liveChatWidget');
+            if (!chatWidget) return;
+
+            if (typeof Tawk_API !== 'undefined' && Tawk_API.getStatus() === 'online') {
+                chatWidget.classList.add('online');
+                chatWidget.title = 'Chat with us - We\'re Online';
+            } else {
+                chatWidget.classList.remove('online');
+                chatWidget.title = 'Leave us a message';
+            }
+        }
+
+        function setupChatNotifications() {
+            // Set up periodic status check
+            setInterval(updateChatStatus, 30000);
+
+            // Initialize notification badge
+            updateChatNotification();
+
+            // Set up visibility change handler
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden) {
+                    updateChatStatus();
+                }
+            });
+        }
+
+        function showFeedbackPrompt() {
+            const feedbackHtml = `
+                <div class="chat-feedback" id="chatFeedback">
+                    <h4>How was your chat experience?</h4>
+                    <div class="rating">
+                        ${[1,2,3,4,5].map(n => `
+                            <span class="star" data-rating="${n}">★</span>
+                        `).join('')}
+                    </div>
+                    <button onclick="submitFeedback()">Submit</button>
+                </div>
+            `;
+            
+            const feedbackElement = document.createElement('div');
+            feedbackElement.innerHTML = feedbackHtml;
+            document.body.appendChild(feedbackElement);
+        }
+
+        function submitFeedback() {
+            const rating = document.querySelector('.star.selected')?.dataset.rating;
+            if (rating) {
+                trackChatEvent('feedback_submitted', { rating: rating });
+                document.getElementById('chatFeedback').remove();
+            }
+        }
+
+        function showOfflineNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'offline-notification';
+            notification.innerHTML = `
+                <p>Our team is currently offline. We'll respond to your message as soon as possible.</p>
+                <button onclick="this.parentElement.remove()">OK</button>
+            `;
+            document.body.appendChild(notification);
+        }
+
+        function handleChatLoadError() {
+            const chatWidget = document.getElementById('liveChatWidget');
+            if (chatWidget) {
+                chatWidget.onclick = function() {
+                    document.querySelector('.contact-form').scrollIntoView({ behavior: 'smooth' });
+                };
+                chatWidget.title = 'Chat unavailable - Click to contact us';
+            }
+        }
+
+        function trackChatEvent(eventName, data = {}) {
+            // Implement your analytics tracking here
+            console.log('Chat event:', eventName, data);
+            
+            // Example: Send to Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', `chat_${eventName}`, {
+                    'event_category': 'Chat',
+                    'event_label': JSON.stringify(data)
+                });
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary-violet: #2196F3;
+            --secondary-purple: #64B5F6;
+            --dark-grey: #333333;
+            --light-grey: #F5F5F5;
+            --black: #000000;
+            --background: var(--light-grey);
+            --text: var(--dark-grey);
+            --card-bg: white;
+            --nav-bg: var(--black);
+            --nav-text: white;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.9), rgba(100, 181, 246, 0.9));
+            --feature-bg: white;
+            --benefit-bg: var(--dark-grey);
+            --benefit-card: rgba(255, 255, 255, 0.1);
+            --stats-bg: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            --cta-bg: white;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --section-padding: 4rem 2rem;
+            --content-max-width: 1200px;
+            --card-padding: 2rem;
+            --border-radius: 16px;
+            --icon-size: 80px;
+            --heading-size: 2.5rem;
+            --subheading-size: 1.2rem;
+            --text-size: 1rem;
+        }
+
+        :root[data-theme="dark"] {
+            --background: #1a1a1a;
+            --text: #ffffff;
+            --card-bg: #2d2d2d;
+            --light-grey: #333333;
+            --nav-bg: #000000;
+            --nav-text: #ffffff;
+            --hero-overlay: linear-gradient(135deg, rgba(33, 150, 243, 0.95), rgba(100, 181, 246, 0.95));
+            --feature-bg: #2d2d2d;
+            --benefit-bg: #1a1a1a;
+            --benefit-card: rgba(255, 255, 255, 0.05);
+            --stats-bg: linear-gradient(135deg, #1976D2, #42A5F5);
+            --cta-bg: #2d2d2d;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-purple);
+        }
+
+        .nav-button {
+            background-color: var(--primary-violet);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .nav-button:hover {
+            background-color: var(--secondary-purple);
+        }
+
+        /* Add logo styles */
+        .navbar .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            color: var(--nav-text);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--primary-violet);
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Contact page specific styles */
+        .contact-hero {
+            background: var(--hero-overlay),
+                        url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3') center/cover;
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .contact-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-section {
+            padding: 5rem 2rem;
+            background: var(--card-bg);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            padding-right: 2rem;
+        }
+
+        .contact-info h2 {
+            color: var(--primary-violet);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-methods {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--light-grey);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p, .contact-card a {
+            color: var(--text);
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .contact-card a:hover {
+            color: var(--primary-violet);
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h2 {
+            color: var(--primary-violet);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--light-grey);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-violet);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.15);
+        }
+
+        textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-violet);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-button:hover {
+            background: var(--secondary-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .office-locations {
+            padding: 5rem 2rem;
+            background: var(--light-grey);
+        }
+
+        .locations-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .locations-container h2 {
+            color: var(--primary-violet);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .location-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .location-card i {
+            font-size: 2rem;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .location-card h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .location-card p {
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .error-message {
+            display: none;
+            background: rgba(255, 59, 48, 0.1);
+            color: #ff3b30;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group .error {
+            color: #ff3b30;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .live-chat-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-violet);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .live-chat-widget:hover {
+            transform: translateY(-5px);
+            background: var(--secondary-purple);
+        }
+
+        .live-chat-widget i {
+            font-size: 1.5rem;
+        }
+
+        .chat-notification {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff3b30;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Add footer styles */
+        footer {
+            background-color: var(--nav-bg);
+            color: var(--nav-text);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-violet);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--nav-text);
+            text-decoration: none;
+            line-height: 1.6;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-purple);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-violet);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-info {
+                padding-right: 0;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chat-feedback {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            text-align: center;
+        }
+
+        .chat-feedback .rating {
+            margin: 15px 0;
+        }
+
+        .chat-feedback .star {
+            color: #ddd;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .chat-feedback .star:hover,
+        .chat-feedback .star.selected {
+            color: #FFD700;
+        }
+
+        .offline-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            max-width: 300px;
+        }
+
+        .offline-notification button {
+            background: var(--primary-violet);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #liveChatWidget.online {
+            background: #4CAF50;
+        }
+
+        #liveChatWidget.online:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="logo-text">Vital<span>Track</span></div>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="benefits.html">Benefits</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="blog.html">Blog</a>
+            <a href="help-center.html">Help Center</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" class="nav-button">Get Started</a>
+        </div>
+    </nav>
+
+    <section class="contact-hero">
+        <div class="hero-content">
+            <h1>Get in Touch</h1>
+            <p>Have questions about VitalTrack Pro? We're here to help you with everything from technical support to sales inquiries.</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <div class="contact-methods">
+                    <div class="contact-card">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>Phone Support</h3>
+                        <p>24/7 Customer Service</p>
+                        <a href="tel:+1234567890" onclick="trackPhoneCall()">+1 (234) 567-890</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email Support</h3>
+                        <p>We'll respond within 24 hours</p>
+                        <a href="mailto:support@vitaltrackpro.com" onclick="trackEmailClick()">support@vitaltrackpro.com</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-comments"></i>
+                        <h3>Live Chat</h3>
+                        <p>Available Monday to Friday</p>
+                        <p>9:00 AM - 6:00 PM EST</p>
+                        <button class="submit-button" onclick="openLiveChat()">Start Chat</button>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h2>Send us a Message</h2>
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    Thank you for your message. We'll get back to you soon!
+                </div>
+                <div class="error-message" id="errorMessage">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Something went wrong. Please try again.</span>
+                </div>
+                <form id="contactForm" novalidate>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-input" required minlength="2">
+                        <div class="error" id="nameError">Please enter your full name (minimum 2 characters)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-input" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                        <div class="error" id="emailError">Please enter a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-input" required minlength="5">
+                        <div class="error" id="subjectError">Please enter a subject (minimum 5 characters)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-input" required minlength="20"></textarea>
+                        <div class="error" id="messageError">Please enter your message (minimum 20 characters)</div>
+                    </div>
+                    <button type="submit" class="submit-button" id="submitButton">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="office-locations">
+        <div class="locations-container">
+            <h2>Our Global Offices</h2>
+            <div class="locations-grid">
+                <div class="location-card">
+                    <i class="fas fa-building"></i>
+                    <h3>New York</h3>
+                    <p>123 Tech Avenue<br>New York, NY 10001<br>United States</p>
+                    <p>+1 (234) 567-890</p>
+                </div>
+                <div class="location-card">
+                    <i class="fas fa-building"></i>
+                    <h3>London</h3>
+                    <p>456 Innovation Street<br>London, EC1A 1BB<br>United Kingdom</p>
+                    <p>+44 20 7123 4567</p>
+                </div>
+                <div class="location-card">
+                    <i class="fas fa-building"></i>
+                    <h3>Singapore</h3>
+                    <p>789 Digital Road<br>Singapore 123456</p>
+                    <p>+65 6789 0123</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="live-chat-widget" id="liveChatWidget" onclick="openLiveChat()">
+        <i class="fas fa-comments"></i>
+        <span class="chat-notification" id="chatNotification">1</span>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 VitalTrack Pro. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+        })();
+
+        // Enhanced chat functionality
+        let chatInitialized = false;
+        let unreadMessages = 0;
+
+        function openLiveChat() {
+            if (typeof Tawk_API !== 'undefined') {
+                Tawk_API.maximize();
+                document.getElementById('chatNotification').style.display = 'none';
+                unreadMessages = 0;
+                updateChatNotification();
+            } else {
+                console.error('Chat widget not loaded');
+                // Fallback to contact form
+                document.querySelector('.contact-form').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function updateChatNotification() {
+            const notification = document.getElementById('chatNotification');
+            if (unreadMessages > 0) {
+                notification.textContent = unreadMessages;
+                notification.style.display = 'flex';
+            } else {
+                notification.style.display = 'none';
+            }
+        }
+
+        // Store user information when form is submitted
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Validate all fields
+            let isValid = true;
+            if (!validateName(name)) {
+                showError('nameError', true);
+                isValid = false;
+            }
+            if (!validateEmail(email)) {
+                showError('emailError', true);
+                isValid = false;
+            }
+            if (!validateSubject(subject)) {
+                showError('subjectError', true);
+                isValid = false;
+            }
+            if (!validateMessage(message)) {
+                showError('messageError', true);
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Show loading state
+            const submitButton = document.getElementById('submitButton');
+            submitButton.classList.add('loading');
+            submitButton.disabled = true;
+
+            try {
+                // Send email using EmailJS
+                await emailjs.send(
+                    "YOUR_EMAILJS_SERVICE_ID",
+                    "YOUR_EMAILJS_TEMPLATE_ID",
+                    {
+                        from_name: name,
+                        from_email: email,
+                        subject: subject,
+                        message: message
+                    }
+                );
+
+                // Store the contact request
+                const formData = {
+                    name,
+                    email,
+                    subject,
+                    message,
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('lastContactRequest', JSON.stringify(formData));
+
+                // Show success message
+                const successMessage = document.getElementById('successMessage');
+                const errorMessage = document.getElementById('errorMessage');
+                successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
+                contactForm.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+
+                // Update chat visitor information if form submission is successful
+                if (typeof Tawk_API !== 'undefined') {
+                    localStorage.setItem('visitorName', name);
+                    localStorage.setItem('visitorEmail', email);
+                    
+                    Tawk_API.setAttributes({
+                        'name': name,
+                        'email': email
+                    }, function(error) {
+                        if (error) {
+                            console.error('Error updating chat attributes:', error);
+                        }
+                    });
+                }
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+            } finally {
+                // Remove loading state
+                submitButton.classList.remove('loading');
+                submitButton.disabled = false;
+            }
+        });
+
+        // Analytics tracking functions
+        function trackPhoneCall() {
+            // Add your analytics tracking code here
+            console.log('Phone call tracked');
+        }
+
+        function trackEmailClick() {
+            // Add your analytics tracking code here
+            console.log('Email click tracked');
+        }
+
+        function trackSocialClick(platform) {
+            // Track click event
+            console.log(`${platform} click tracked`);
+            
+            // Send to Google Analytics if available
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'social_click', {
+                    'event_category': 'Social Media',
+                    'event_label': platform,
+                    'transport_type': 'beacon'
+                });
+            }
+            
+            // Store interaction in localStorage
+            const socialInteractions = JSON.parse(localStorage.getItem('socialInteractions') || '{}');
+            socialInteractions[platform] = {
+                lastClick: new Date().toISOString(),
+                clickCount: (socialInteractions[platform]?.clickCount || 0) + 1
+            };
+            localStorage.setItem('socialInteractions', JSON.stringify(socialInteractions));
+        }
+
+        // Show chat prompt after 30 seconds
+        setTimeout(() => {
+            showChatPrompt();
+        }, 30000);
+
+        // Show chat prompt when user scrolls to bottom
+        window.addEventListener('scroll', () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+                showChatPrompt();
+            }
+        });
+
+        // Show chat prompt
+        function showChatPrompt() {
+            if (!document.hidden && typeof Tawk_API !== 'undefined' && !Tawk_API.isChatMaximized()) {
+                unreadMessages++;
+                updateChatNotification();
+                
+                // Show custom notification
+                const notification = document.createElement('div');
+                notification.className = 'chat-prompt';
+                notification.innerHTML = `
+                    <div class="chat-prompt-content">
+                        <p>Need help? Our support team is online!</p>
+                        <button onclick="openLiveChat()">Start Chat</button>
+                    </div>
+                `;
+                document.body.appendChild(notification);
+
+                // Remove notification after 10 seconds
+                setTimeout(() => {
+                    notification.remove();
+                }, 10000);
+            }
+        }
+
+        // Track user activity
+        let userActive = false;
+        let lastActivity = Date.now();
+
+        function updateUserActivity() {
+            userActive = true;
+            lastActivity = Date.now();
+            
+            // Show chat prompt if user is active for more than 1 minute
+            if (!chatInitialized && (Date.now() - lastActivity) > 60000) {
+                showChatPrompt();
+                chatInitialized = true;
+            }
+        }
+
+        // Track user activity events
+        ['mousemove', 'keydown', 'click', 'scroll'].forEach(event => {
+            document.addEventListener(event, updateUserActivity);
+        });
+
+        // Add custom chat styles
+        const chatStyles = document.createElement('style');
+        chatStyles.textContent = `
+            .chat-prompt {
+                position: fixed;
+                bottom: 100px;
+                right: 20px;
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                z-index: 999;
+                animation: slideIn 0.3s ease-out;
+            }
+
+            .chat-prompt-content {
+                text-align: center;
+            }
+
+            .chat-prompt button {
+                background: var(--primary-violet);
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                margin-top: 10px;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+
+            .chat-prompt button:hover {
+                background: var(--secondary-purple);
+                transform: translateY(-2px);
+            }
+
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(chatStyles);
+    </script>
+</body>
+</html> 
