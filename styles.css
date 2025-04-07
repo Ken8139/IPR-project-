@@ -270,31 +270,35 @@ footer {
     .navbar {
         flex-direction: column;
         gap: 1rem;
+        padding: 1rem;
     }
 
     .nav-links {
         flex-direction: column;
         gap: 1rem;
+        width: 100%;
+    }
+
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .nav-button {
         width: 100%;
         text-align: center;
+        margin-top: 1rem;
     }
 
     .logo-text {
         font-size: 1.2rem;
     }
-    
-    .logo-icon {
-        width: 35px;
-        height: 35px;
-        font-size: 1.2rem;
-    }
 
-    .theme-toggle {
-        top: auto;
-        bottom: 20px;
-        right: 20px;
+    .logo-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
     }
 } 
