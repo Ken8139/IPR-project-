@@ -590,6 +590,11 @@
                 <div class="logo-text">Vital<span>Track</span></div>
             </div>
         </a>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="features.html">Features</a>
@@ -601,6 +606,7 @@
             <a href="contact.html">Contact</a>
             <a href="login.html" class="nav-button">Get Started</a>
         </div>
+        <div class="menu-overlay"></div>
     </nav>
 
     <section class="pricing">
@@ -880,5 +886,41 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger menu functionality
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            
+            function toggleMenu() {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                document.body.classList.toggle('no-scroll');
+            }
+            
+            hamburger.addEventListener('click', toggleMenu);
+            
+            // Close menu when clicking on a link or outside the menu
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+            navLinksItems.forEach(item => {
+                item.addEventListener('click', toggleMenu);
+            });
+            
+            menuOverlay.addEventListener('click', toggleMenu);
+            
+            // Pricing toggle functionality
+            const pricingOptions = document.querySelectorAll('.pricing-option');
+            
+            pricingOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    pricingOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html> 

@@ -162,29 +162,39 @@ themeToggle.addEventListener('click', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('themeToggle');
-    const root = document.documentElement;
-    const icon = themeToggle.querySelector('i');
+    // Theme toggle functionality
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
     
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        root.setAttribute('data-theme', savedTheme);
-        updateIcon(savedTheme === 'dark');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            body.setAttribute('data-theme', 
+                body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+            );
+        });
     }
+
+    // Hamburger menu functionality
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const menuOverlay = document.querySelector('.menu-overlay');
     
-    // Toggle theme on button click
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = root.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    if (hamburger && navLinks && menuOverlay) {
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        }
         
-        root.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        updateIcon(newTheme === 'dark');
-    });
-    
-    // Update icon based on theme
-    function updateIcon(isDark) {
-        icon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+        hamburger.addEventListener('click', toggleMenu);
+        
+        // Close menu when clicking on a link or outside the menu
+        const navLinksItems = document.querySelectorAll('.nav-links a');
+        navLinksItems.forEach(item => {
+            item.addEventListener('click', toggleMenu);
+        });
+        
+        menuOverlay.addEventListener('click', toggleMenu);
     }
 }); 

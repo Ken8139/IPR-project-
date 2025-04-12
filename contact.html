@@ -316,18 +316,59 @@
             z-index: 1000;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: left side;
         }
 
-        .navbar h1 {
+        .logo-container {
+            display: flex;
+            align-items: left side;
+            text-decoration: none;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center ;
+            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
             color: var(--nav-text);
             font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            color: var(--primary-violet);
         }
 
         .nav-links {
             display: flex;
             gap: 2rem;
-            align-items: center;
+            align-items: left corner;
+            margin-left: auto;
+        }
+
+        .hamburger {
+            display: outside;
+            align-items: right corner;
+            cursor: pointer;
+            position: fixed;
+            right: 2rem;
+            top: 1.5rem;
+            z-index: 1001;
         }
 
         .nav-links a {
@@ -354,52 +395,33 @@
             background-color: var(--secondary-purple);
         }
 
-        /* Add logo styles */
-        .navbar .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .navbar .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--primary-violet), var(--secondary-purple));
-            border-radius: 10px;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .logo-text {
-            color: var(--nav-text);
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
-
-        .logo-text span {
-            color: var(--primary-violet);
-        }
-
         @media (max-width: 768px) {
-            .logo-text {
-                font-size: 1.2rem;
+            .navbar {
+                padding: 1rem;
             }
-            
-            .logo-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 1.2rem;
+
+            .hamburger {
+                display: flex;
+                position: fixed;
+                right: 1rem;
+                top: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--nav-bg);
+                padding: 2rem;
+                gap: 1.5rem;
             }
         }
 
@@ -877,6 +899,12 @@
             <a href="contact.html">Contact</a>
             <a href="login.html" class="nav-button">Get Started</a>
         </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-overlay"></div>
     </nav>
 
     <section class="contact-hero">
@@ -989,6 +1017,28 @@
         (function() {
             emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
         })();
+
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        }
+        
+        hamburger.addEventListener('click', toggleMenu);
+        
+        // Close menu when clicking on a link or outside the menu
+        const navLinksItems = document.querySelectorAll('.nav-links a');
+        navLinksItems.forEach(item => {
+            item.addEventListener('click', toggleMenu);
+        });
+        
+        menuOverlay.addEventListener('click', toggleMenu);
 
         // Enhanced chat functionality
         let chatInitialized = false;
